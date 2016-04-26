@@ -107,6 +107,13 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\IAssetRepository.cs" />
+    <Compile Include="Common\ICategoryRepository.cs" />
+    <Compile Include="Common\ICurrencyRepository.cs" />
+    <Compile Include="Common\IRepository.cs" />
+    <Compile Include="Common\ITransactionRepository.cs" />
+    <Compile Include="Common\IUnitOfWork.cs" />
+    <Compile Include="Common\IUserRepository.cs" />
     <Compile Include="DbContext\FamilyBudgetContext.cs" />
     <Compile Include="Migrations\20160424194804_DbMigration.cs" />
     <Compile Include="Migrations\20160424194804_DbMigration.designer.cs">
@@ -120,8 +127,10 @@
     <Compile Include="Model\Transaction.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\Repository.cs" />
     <EmbeddedResource Include="Properties\DAL.rd.xml" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
