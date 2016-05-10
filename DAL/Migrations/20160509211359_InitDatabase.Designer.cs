@@ -8,8 +8,8 @@ using DAL.DbContext;
 namespace DAL.Migrations
 {
     [DbContext(typeof(FamilyBudgetContext))]
-    [Migration("20160424194804_DbMigration")]
-    partial class DbMigration
+    [Migration("20160509211359_InitDatabase")]
+    partial class InitDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -60,6 +60,8 @@ namespace DAL.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasAnnotation("MaxLength", 128);
+
+                    b.Property<DateTime>("UpadeDate");
 
                     b.HasKey("Id");
                 });

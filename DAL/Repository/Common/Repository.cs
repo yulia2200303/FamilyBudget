@@ -2,21 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using DAL.Common;
 using DAL.DbContext;
 using DAL.Model.Common;
 using Microsoft.Data.Entity;
 
-namespace DAL.Repository
+namespace DAL.Repository.Common
 {
     public class Repository<T> : IRepository<T> where T : class, IEntity
     {
-        protected DbSet<T> DbSet;
         protected FamilyBudgetContext DbContext;
+        protected DbSet<T> DbSet;
 
         public Repository(Microsoft.Data.Entity.DbContext dataContext)
         {
-            DbContext = (FamilyBudgetContext)dataContext;
+            DbContext = (FamilyBudgetContext) dataContext;
             DbSet = dataContext.Set<T>();
         }
 
@@ -31,7 +30,7 @@ namespace DAL.Repository
 
         public void DeleteById(int id)
         {
-            T entity = DbSet.First(e => e.Id == id);
+            var entity = DbSet.First(e => e.Id == id);
             DbSet.Remove(entity);
         }
 
@@ -63,9 +62,9 @@ namespace DAL.Repository
 
             if (navigationPropertyPath != null)
             {
-                queryResult = queryResult.Include(navigationPropertyPath);//!!!! check it
+                queryResult = queryResult.Include(navigationPropertyPath); //!!!! check it
             }
-               
+
             if (orderBy != null)
             {
                 return orderBy(queryResult).ToList();
@@ -74,15 +73,15 @@ namespace DAL.Repository
             return queryResult.ToList();
         }
 
-        public T Insert(T entity)
-        {
-            return DbSet.Add(entity).Entity; //!!! check it
-        }
-
         public void Update(T entity)
         {
             DbSet.Attach(entity);
             DbContext.Entry(entity).State = EntityState.Modified;
+        }
+
+        public T Insert(T entity)
+        {
+            return DbSet.Add(entity).Entity; //!!! check it
         }
     }
 }
