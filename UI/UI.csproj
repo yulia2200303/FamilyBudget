@@ -107,6 +107,8 @@
     </Compile>
     <Compile Include="Logic\CurrencyWrapper.cs" />
     <Compile Include="Logic\Extension\StringExt.cs" />
+    <Compile Include="Logic\SaltedHash.cs" />
+    <Compile Include="MVVM\RequiredIfAttribute.cs" />
     <Compile Include="Pages\Currency.xaml.cs">
       <DependentUpon>Currency.xaml</DependentUpon>
     </Compile>
@@ -123,6 +125,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\AccountViewModel.cs" />
     <Compile Include="ViewModel\Common\BaseViewModel.cs" />
     <Compile Include="ViewModel\CurrencyViewModel.cs" />
   </ItemGroup>

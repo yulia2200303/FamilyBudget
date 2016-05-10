@@ -8,7 +8,31 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Button x:Name="button1" Content="Button" HorizontalAlignment="Left" Margin="115,314,0,0"
+        <StackPanel>
+
+            <Button x:Name="button1" Content="Button" HorizontalAlignment="Left" Height="100"
                 VerticalAlignment="Top" Click="click_b" />
+            <ListView ItemsSource="{Binding Users}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Background="Red" Margin="10" Orientation="Horizontal">
+                            <TextBlock Text="{Binding Name}"></TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <StackPanel>
+                <TextBox Background="Aquamarine" Text="{Binding Login, Mode=TwoWay}"></TextBox>
+                <TextBlock Text="{Binding Errors[Login][0]}"
+                       Foreground="Red"
+                       HorizontalAlignment="Right" />
+                <CheckBox IsChecked="{Binding IsPasswordSet, Mode=TwoWay}" />
+                <PasswordBox Background="BlueViolet" Password="{Binding Password, Mode=TwoWay}"></PasswordBox>
+                <TextBlock Text="{Binding Errors[Password][0]}"
+                       Foreground="Red"
+                       HorizontalAlignment="Right" />
+                <Button Content="Add" HorizontalAlignment="Center" Command="{Binding AddUserCommand}" Height="74" Margin="114,0,85,0" Width="161"></Button>
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </Page>

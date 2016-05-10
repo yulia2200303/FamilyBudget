@@ -56,9 +56,6 @@ namespace UI.ViewModel
                     Currencies = new ObservableCollection<DAL.Model.Currency>(currencies);
                     UpdateDate = DateTime.Now;
                 }
-
-                var dialog = new MessageDialog("dfdfdf");
-                await dialog.ShowAsync();
             }
             catch (Exception ex)
             {

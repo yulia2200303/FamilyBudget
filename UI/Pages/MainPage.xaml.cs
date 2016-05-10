@@ -1,5 +1,6 @@
 ﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using UI.ViewModel;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -13,21 +14,9 @@ namespace UI.Pages
         public MainPage()
         {
             InitializeComponent();
-            //using (var uow = new UnitOfWork())
-            //{
-            //    var currency = new Currency()
-            //    {
-            //        Code = "USD",
-            //        Name = "American dollar",
-            //        Converter = 1,
-            //    };
-            //    uow.CurrencyRepository.Insert(currency);
-            //    uow.Commit();
 
-            //    var currencies = uow.CurrencyRepository.GetAll().ToList();
-
-
-            //}
+            var model = new AccountViewModel();
+            DataContext = model;
         }
 
         private void click_b(object sender, RoutedEventArgs e)
