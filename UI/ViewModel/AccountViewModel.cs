@@ -3,18 +3,17 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using Windows.Security.Credentials;
-using Windows.System;
 using Windows.UI.Popups;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using DAL.Common;
 using Microsoft.Practices.Prism.Commands;
-using Prism.Windows.Validation;
 using UI.Logic;
+using UI.Model;
 using UI.MVVM;
+using UI.MVVM.Validation;
+using UI.Pages;
 using UI.ViewModel.Common;
 using User = DAL.Model.User;
 
@@ -26,18 +25,18 @@ namespace UI.ViewModel
         {
             using (var uow = new UnitOfWork())
             {
-                var users = uow.UserRepository.GetByQuery(orderBy: o => o.OrderBy(u => u.Name));
-                Users = new ObservableCollection<User>(users);
+                var users = uow.UserRepository.GetByQuery(orderBy: o => o.OrderBy(u => u.Name)).Select(UserModel.Convert).ToList();
+                Users = new ObservableCollection<UserModel>(users);
             }
 
             AddUserCommand = new DelegateCommand(OnAddUserCommand);
-
-
+            LoginCommand = new DelegateCommand<UserModel>(OnLoginCommand);
+            RemoveCommand = new DelegateCommand<UserModel>(OnRemoveCommand);
         }
 
-        private ObservableCollection<User> _users;
+        private ObservableCollection<UserModel> _users;
 
-        public ObservableCollection<User> Users
+        public ObservableCollection<UserModel> Users
         {
             get { return _users; }
             set { SetProperty(ref _users, value); }
@@ -47,6 +46,7 @@ namespace UI.ViewModel
 
         [Required(ErrorMessage = "Name is required.")]
         [StringLength(16, MinimumLength = 4, ErrorMessage = "Длинна от 4 до 16 символов")]
+        [UniqueUserName(ErrorMessage = "Такой профиль уже существует")]
         public string Login
         {
             get { return _login; }
@@ -72,32 +72,105 @@ namespace UI.ViewModel
             set { SetProperty(ref _isPasswordSet, value); }
         }
 
+        private UserModel _userModel;
+
+        public UserModel SelectedUser
+        {
+            get { return _userModel; }
+            set { this.SetProperty(ref _userModel, value); }
+        }
+
         public ICommand AddUserCommand { get; }
 
         private void OnAddUserCommand()
         {
-            SaltedHash saltedHash = new SaltedHash("123456");
-            var hash = saltedHash.Hash;
-            var salt = saltedHash.Salt;
-
-            var result = SaltedHash.Verify(salt, hash, "123456");
-
-
-            //var dialog = new MessageDialog(Login, Password);
-            //dialog.ShowAsync();
             if (!ValidateProperties()) return;
 
+            var user = new User()
+            {
+                Name = Login,
+            };
 
-            //var user = new User()
-            //{
-            //    Name = Login,
+            if (IsPasswordSet)
+            {
+                SaltedHash saltedHash = new SaltedHash(Password);
+                user.IsPasswordSet = true;
+                user.Hash = saltedHash.Hash;
+                user.Salt = saltedHash.Salt;
+            }
 
-            //};
-            //using (var uow = new UnitOfWork())
-            //{
-            //    uow.UserRepository.Insert(user);
-            //    uow.Commit();
-            //}
+            using (var uow = new UnitOfWork())
+            {
+                uow.UserRepository.Insert(user);
+                uow.Commit();
+            }
+
+            Users.Add(UserModel.Convert(user));
+            ClearCredentials();
+        }
+
+        public ICommand RemoveCommand { get; }
+
+        public async void OnRemoveCommand(UserModel userModel)
+        {
+            if (userModel != null)
+                SelectedUser = userModel;
+
+            var dialog = new ContentDialog
+            {
+                Title = "Lorem Ipsum",
+                Content = "Действительно хотите удалить профиль " + SelectedUser.Name,
+                PrimaryButtonText = "Да",
+                SecondaryButtonText = "Нет",
+            };
+
+            dialog.PrimaryButtonClick += delegate
+            {
+                using (var uow = new UnitOfWork())
+                {
+                    uow.UserRepository.DeleteById(SelectedUser.Id);
+                    uow.Commit();
+                }
+
+                Users.Remove(SelectedUser);
+                SelectedUser = null;
+            };
+
+            dialog.SecondaryButtonClick += delegate
+            {
+                dialog.Hide();
+            };
+
+            await dialog.ShowAsync();
+        }
+
+        public ICommand LoginCommand { get; }
+
+        private void OnLoginCommand(UserModel selecredUser)
+        {
+            if (selecredUser == null) return;
+
+            SelectedUser = selecredUser;
+            if (!SelectedUser.IsPasswordSet)
+            {
+                var rootFrame = Window.Current.Content as Frame;
+                rootFrame.Navigate(typeof(MyAssets));
+                return;
+            }
+
+            selecredUser.IsPanelShow = true;
+            //Users = new ObservableCollection<UserModel>(Users);
+            //var s = Users.FirstOrDefault(u => u.Id == selecredUser.Id);
+            //s.IsPanelShow = true;
+            //s.Is
+        }
+
+        private void ClearCredentials()
+        {
+            Login = string.Empty;
+            Password = string.Empty;
+            IsPasswordSet = false;
+            SelectedUser = null;
         }
     }
 }

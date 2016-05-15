@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using DAL.Model;
 using DAL.Repository.Common;
 
@@ -12,12 +13,12 @@ namespace DAL.Repository
 
         public bool IsUserExist(string login)
         {
-            throw new NotImplementedException();
+            return GetByLogin(login) != null;
         }
 
         public User GetByLogin(string login)
         {
-            throw new NotImplementedException();
+            return DbContext.Users.FirstOrDefault(u => u.Name.Equals(login, StringComparison.CurrentCultureIgnoreCase));
         }
     }
 }
