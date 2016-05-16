@@ -12,7 +12,7 @@
         <converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </Page.Resources>
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" x:Name="Main">
         <StackPanel>
 
             <Button x:Name="button1" Content="Button" HorizontalAlignment="Left" Height="100"
@@ -23,7 +23,7 @@
                         <StackPanel Background="Red" Margin="10" Orientation="Vertical">
                             <TextBlock Text="{Binding Name}"></TextBlock>
                             <StackPanel Visibility="{Binding IsPanelShow, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                <PasswordBox Background="Chartreuse" Password="{Binding EnteredPassword, Mode=TwoWay}"></PasswordBox>
+                                <PasswordBox Background="Chartreuse" Password="{Binding EnteredPassword, Mode=TwoWay}" commands:PasswordChangeTextCommnand.Command="{Binding ElementName=Main, Path=DataContext.EnteredPasswordCommand}"></PasswordBox>
                             </StackPanel>
                         </StackPanel>
                     </DataTemplate>

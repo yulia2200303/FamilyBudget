@@ -110,6 +110,7 @@
     <Compile Include="Logic\SaltedHash.cs" />
     <Compile Include="Model\UserModel.cs" />
     <Compile Include="MVVM\Command\ListViewItemClickCommand.cs" />
+    <Compile Include="MVVM\Command\PasswordChangeTextCommnand.cs" />
     <Compile Include="MVVM\Converter\BooleanToVisibilityConverter.cs" />
     <Compile Include="MVVM\Validation\RequiredIfAttribute.cs" />
     <Compile Include="MVVM\Validation\UniqueUserNameAttribute.cs" />

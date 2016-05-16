@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -92,7 +93,36 @@ namespace UI
             }
             // Ensure the current window is active
             Window.Current.Activate();
+
+            // устанавливаем обработчик
+            SystemNavigationManager.GetForCurrentView().BackRequested += App_BackRequested;
+            rootFrame.Navigated += (s, args) =>
+            {
+                if (rootFrame.CanGoBack) // если можно перейти назад, показываем кнопку
+                {
+                    SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
+                                            AppViewBackButtonVisibility.Visible;
+                }
+                else
+                {
+                    SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
+                        AppViewBackButtonVisibility.Collapsed;
+                }
+
+            };
         }
+
+
+        private void App_BackRequested(object sender, BackRequestedEventArgs e)
+        {
+            Frame frame = Window.Current.Content as Frame;
+            if (frame.CanGoBack)
+            {
+                frame.GoBack();
+                e.Handled = true;
+            }
+        }
+
 
         /// <summary>
         ///     Invoked when Navigation to a certain page fails

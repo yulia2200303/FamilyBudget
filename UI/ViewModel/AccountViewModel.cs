@@ -32,6 +32,25 @@ namespace UI.ViewModel
             AddUserCommand = new DelegateCommand(OnAddUserCommand);
             LoginCommand = new DelegateCommand<UserModel>(OnLoginCommand);
             RemoveCommand = new DelegateCommand<UserModel>(OnRemoveCommand);
+            EnteredPasswordCommand = new DelegateCommand<string>(OnEnteredPasswordChange);
+
+            timer = new DispatcherTimer() { Interval = new TimeSpan(0, 0, 0, 1, 500) }; 
+            timer.Tick += TimerOnTick;
+        }
+
+        private void TimerOnTick(object sender, object o)
+        {
+            timer.Stop();
+
+            if(SelectedUser == null) return;
+
+            if (SaltedHash.Verify(SelectedUser.Salt, SelectedUser.Hash, SelectedUser.EnteredPassword))
+            {
+                var rootFrame = Window.Current.Content as Frame;
+                rootFrame.Navigate(typeof (MyAssets));
+            }
+
+          
         }
 
         private ObservableCollection<UserModel> _users;
@@ -164,6 +183,20 @@ namespace UI.ViewModel
             //s.IsPanelShow = true;
             //s.Is
         }
+
+        public ICommand EnteredPasswordCommand { get; }
+
+        private void OnEnteredPasswordChange(string password)
+        {
+            if (timer.IsEnabled)
+            {
+                timer.Stop();
+            }
+
+            timer.Start();
+        }
+
+        DispatcherTimer timer;
 
         private void ClearCredentials()
         {
