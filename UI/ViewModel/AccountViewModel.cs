@@ -34,7 +34,7 @@ namespace UI.ViewModel
             RemoveCommand = new DelegateCommand<UserModel>(OnRemoveCommand);
             EnteredPasswordCommand = new DelegateCommand<string>(OnEnteredPasswordChange);
 
-            timer = new DispatcherTimer() { Interval = new TimeSpan(0, 0, 0, 1, 500) }; 
+            timer = new DispatcherTimer { Interval = new TimeSpan(0, 0, 0, 1, 500) }; 
             timer.Tick += TimerOnTick;
         }
 
@@ -46,11 +46,10 @@ namespace UI.ViewModel
 
             if (SaltedHash.Verify(SelectedUser.Salt, SelectedUser.Hash, SelectedUser.EnteredPassword))
             {
+                UserContext.Current.Authenticate(SelectedUser.Name, SelectedUser.EnteredPassword, SelectedUser.Id, null);
                 var rootFrame = Window.Current.Content as Frame;
                 rootFrame.Navigate(typeof (MyAssets));
             }
-
-          
         }
 
         private ObservableCollection<UserModel> _users;
@@ -172,6 +171,7 @@ namespace UI.ViewModel
             SelectedUser = selecredUser;
             if (!SelectedUser.IsPasswordSet)
             {
+                UserContext.Current.Authenticate(SelectedUser.Name, "", SelectedUser.Id, null);
                 var rootFrame = Window.Current.Content as Frame;
                 rootFrame.Navigate(typeof(MyAssets));
                 return;

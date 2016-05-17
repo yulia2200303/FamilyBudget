@@ -7,7 +7,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" >
+        <Button Content="Add Transaction" Command="{Binding AddTransactionCommand}"></Button>
+    </Grid>
 
     <Page.BottomAppBar>
         <AppBar IsOpen="False" IsSticky="True">
