@@ -111,10 +111,14 @@
     <Compile Include="Logic\SerializeWrapper.cs" />
     <Compile Include="Logic\UserContext.cs" />
     <Compile Include="Model\UserModel.cs" />
+    <Compile Include="MVVM\Command\CalendarDatePickerCommand.cs" />
     <Compile Include="MVVM\Command\ListViewItemClickCommand.cs" />
     <Compile Include="MVVM\Command\PasswordChangeTextCommnand.cs" />
     <Compile Include="MVVM\Converter\BooleanToVisibilityConverter.cs" />
+    <Compile Include="MVVM\Converter\DateTimeToDateTimeOffsetConverter.cs" />
+    <Compile Include="MVVM\Helpers\FlyoutHelpers.cs" />
     <Compile Include="MVVM\Validation\RequiredIfAttribute.cs" />
+    <Compile Include="MVVM\Validation\UniqueAssetAttibute.cs" />
     <Compile Include="MVVM\Validation\UniqueUserNameAttribute.cs" />
     <Compile Include="Pages\AddTransaction.xaml.cs">
       <DependentUpon>AddTransaction.xaml</DependentUpon>

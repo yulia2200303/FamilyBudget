@@ -5,16 +5,62 @@
     xmlns:local="using:UI"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:helpers="using:UI.MVVM.Helpers"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" >
-        <Button Content="Add Transaction" Command="{Binding AddTransactionCommand}"></Button>
+    <Grid x:Name="Main" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Button Content="Add Transaction" Command="{Binding AddTransactionCommand}"></Button>
+        </Grid>
+        <GridView ItemsSource="{Binding Assets}" IsItemClickEnabled="False" HorizontalAlignment="Stretch">
+            <GridView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <StackPanel Margin="20,20,0,0">
+                            <TextBlock FontSize="18" Text="{Binding Name}" HorizontalAlignment="Right"></TextBlock>
+                            <Button Content="Add a Transaction" Command="{Binding ElementName=Main, Path=DataContext.AddTransactionCommand}" CommandParameter="{Binding}"></Button>
+                            <Button Content="Delete a  Transaction"></Button>
+                            <Button Content="List of transaction"></Button>
+                        </StackPanel>
+                    </StackPanel>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+        </GridView>
+
+        <!--<Popup  Grid.Row="0" IsOpen="True"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Opened="Popup_OnOpened">
+            <Grid x:Name="Popup" Background="Black" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+               <Button Content="tttttt"></Button>
+           </Grid>
+        </Popup>-->
     </Grid>
 
     <Page.BottomAppBar>
-        <AppBar IsOpen="False" IsSticky="True">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+        <AppBar x:Name="DD" IsOpen="False"  IsSticky="True" ClosedDisplayMode="Minimal">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
                 <AppBarButton Name="Show" Icon="Accept" Label="Currency" Click="Navigate_ToCurrency" />
+                <AppBarButton Name="AddAssetBtn" Icon="Accept" Label="Add Asset">
+                    <AppBarButton.Flyout>
+                        <Flyout Placement="Full" Opened="FlyoutBase_OnOpened" helpers:FlyoutHelpers.Parent="{Binding ElementName=AddAssetBtn}" helpers:FlyoutHelpers.IsOpen="{Binding IsFlyoutOpen, Mode=TwoWay}">
+                            <Flyout.FlyoutPresenterStyle >
+                                <Style TargetType="FlyoutPresenter" >
+                                    <Setter Property="Padding" Value="0"/>
+                                    <Setter Property="Background" Value="Transparent"></Setter>
+                                    <Setter Property="BorderThickness" Value="0"></Setter>
+                                </Style>
+                            </Flyout.FlyoutPresenterStyle >
+                            <Grid Background="Aqua" Margin="50">
+                                <StackPanel>
+                                    <TextBox PlaceholderText="Name" Text="{Binding AssetName, Mode=TwoWay}"></TextBox>
+                                    <TextBlock Text="{Binding Errors[AssetName][0]}" Foreground="Red"  HorizontalAlignment="Right" />
+                                    <Button Content="Add Asset" Command="{Binding AddAssetCommand}"></Button>
+                                </StackPanel>
+                            </Grid>
+                        </Flyout>
+                    </AppBarButton.Flyout>
+                </AppBarButton>
 
             </StackPanel>
         </AppBar>

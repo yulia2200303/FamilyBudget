@@ -5,16 +5,51 @@
     xmlns:local="using:UI.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converter="using:UI.MVVM.Converter"
+    xmlns:command="using:UI.MVVM.Command"
     mc:Ignorable="d">
+    <Page.Resources>
+        <converter:DateTimeToDateTimeOffsetConverter x:Key="DateTimeToDateTimeOffsetConverter"/>
+    </Page.Resources>
+
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <StackPanel>
 
-            <CalendarDatePicker />
+            <CalendarDatePicker x:Name="CalendarDatePicker" PlaceholderText="Selected Date" command:CalendarDatePickerCommand.SelectedDate="{Binding SelectedDate, Mode=TwoWay}"  command:CalendarDatePickerCommand.Command="{Binding DateChangedCommand}" />
+            <TextBlock Text="{Binding Errors[SelectedDate][0]}" Foreground="Red"  HorizontalAlignment="Right" />
             <ComboBox ItemsSource="{Binding Operations}" 
            DisplayMemberPath="Name"
            SelectedValuePath="Value" 
            SelectedValue="{Binding Type, Mode=TwoWay}" />
+            <TextBlock Text="{Binding Errors[Type][0]}" Foreground="Red"  HorizontalAlignment="Right" />
+            <ComboBox ItemsSource="{Binding Assets}" SelectedItem="{Binding SelectedAsset, Mode=TwoWay}"  DisplayMemberPath="Name" HorizontalAlignment="Stretch"  >
+                <!--<ComboBox.HeaderTemplate>
+                    <DataTemplate>
+                        <TextBox PlaceholderText="dddddd"></TextBox>
+                    </DataTemplate>
+                </ComboBox.HeaderTemplate>-->
+                <!--<ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" Width="Auto" Height="Auto">
+                            <TextBlock Text="{Binding Name}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>-->
+            </ComboBox>
+            <TextBox PlaceholderText="Cost" Text="{Binding Cost, Mode=TwoWay}"></TextBox>
+            <TextBlock Text="{Binding Errors[Cost][0]}" Foreground="Red"  HorizontalAlignment="Right" />
+
+            <ComboBox ItemsSource="{Binding Currencies}" SelectedItem="{Binding SelectedCurrnecy, Mode=TwoWay}"  DisplayMemberPath="Code"  Width="50"  >
+            </ComboBox>
+            <ComboBox ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory, Mode=TwoWay}"  DisplayMemberPath="Name"  >
+            </ComboBox>
+            <TextBlock Text="{Binding Errors[SelectedCategory][0]}" Foreground="Red"  HorizontalAlignment="Right" />
+            <ComboBox ItemsSource="{Binding SubCategories}" SelectedItem="{Binding SelectedSubCategory, Mode=TwoWay}"  DisplayMemberPath="Name" >
+            </ComboBox>
+            <TextBlock Text="{Binding Errors[SelectedSubCategory][0]}" Foreground="Red"  HorizontalAlignment="Right" />
+            <TextBox AcceptsReturn="True" TextWrapping="Wrap" Height="60" Text="{Binding Comment, Mode=TwoWay}" />
+            <Button Content="aDD" Command="{Binding AddCommand}"></Button>
         </StackPanel>
     </Grid>
 </Page>

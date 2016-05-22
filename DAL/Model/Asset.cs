@@ -20,7 +20,7 @@ namespace DAL.Model
         [ForeignKey("UserId")]
         public User User { get; set; }
 
-        public ICollection<Transaction> Transactions { get; set; }
+        public List<Transaction> Transactions { get; set; }
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

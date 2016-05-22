@@ -108,6 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constant\CurrencyCode.cs" />
+    <Compile Include="Enum\AssetType.cs" />
     <Compile Include="Enum\OperationType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Shared.rd.xml" />

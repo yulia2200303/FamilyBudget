@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Core;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -31,6 +33,8 @@ namespace UI
                 WindowsCollectors.Session);
             InitializeComponent();
             Suspending += OnSuspending;
+
+          
 
             // var x1 = ApplicationData.Current.LocalFolder;
             try
@@ -110,6 +114,24 @@ namespace UI
                 }
 
             };
+
+            //var view = ApplicationView.GetForCurrentView();
+            //if (view.IsFullScreenMode)
+            //{
+            //    view.ExitFullScreenMode();
+            //    ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.Auto;
+            //    // The SizeChanged event will be raised when the exit from full-screen mode is complete.
+            //}
+            //else
+            //{
+            //    if (view.TryEnterFullScreenMode())
+            //    {
+            //        ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.FullScreen;
+            //        // The SizeChanged event will be raised when the entry to full-screen mode is complete.
+            //    }
+            //}
+
+            ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.FullScreen;
         }
 
 

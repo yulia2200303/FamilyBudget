@@ -8,6 +8,7 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using DAL.Common;
+using DAL.Model;
 using Microsoft.Practices.Prism.Commands;
 using UI.Logic;
 using UI.Model;
@@ -117,14 +118,24 @@ namespace UI.ViewModel
                 user.Salt = saltedHash.Salt;
             }
 
+            var asset = new Asset()
+            {
+                Name = "My asset",
+                Type = 0,
+                User = user
+            };
+
             using (var uow = new UnitOfWork())
             {
                 uow.UserRepository.Insert(user);
+                uow.AssetRepository.Insert(asset);
+
                 uow.Commit();
             }
 
             Users.Add(UserModel.Convert(user));
             ClearCredentials();
+            Errors.SetAllErrors(new Dictionary<string, ReadOnlyCollection<string>>());
         }
 
         public ICommand RemoveCommand { get; }

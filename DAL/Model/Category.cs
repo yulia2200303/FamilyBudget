@@ -16,8 +16,8 @@ namespace DAL.Model
         [ForeignKey("ParentId")]
         public Category Parent { get; set; }
 
-        public ICollection<Category> SubCategories { get; set; }
-        public ICollection<Transaction> Transactions { get; set; }
+        public List<Category> SubCategories { get; set; }
+        public List<Transaction> Transactions { get; set; }
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

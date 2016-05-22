@@ -20,7 +20,7 @@ namespace DAL.Model
         [Required]
         public bool IsPasswordSet { get; set; }
 
-        public ICollection<Asset> Assets { get; set; }
+        public List<Asset> Assets { get; set; }
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

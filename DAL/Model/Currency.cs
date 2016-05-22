@@ -22,7 +22,7 @@ namespace DAL.Model
         [Required]
         public DateTime UpadeDate { get; set; }
 
-        public ICollection<Transaction> Transactions { get; set; }
+        public List<Transaction> Transactions { get; set; }
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
