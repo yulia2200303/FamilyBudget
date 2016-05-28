@@ -105,7 +105,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Logic\Filter\FilterHelper.cs" />
+    <Compile Include="Logic\Filter\TransactionFilterExt.cs" />
     <Compile Include="Logic\Filter\Filter.cs" />
     <Compile Include="Logic\Filter\FilterData.cs" />
     <Compile Include="Logic\Filter\FilterType.cs" />

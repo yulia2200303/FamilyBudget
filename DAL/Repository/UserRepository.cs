@@ -2,6 +2,7 @@
 using System.Linq;
 using DAL.Model;
 using DAL.Repository.Common;
+using Microsoft.Data.Entity;
 
 namespace DAL.Repository
 {
@@ -21,9 +22,9 @@ namespace DAL.Repository
             return DbContext.Users.FirstOrDefault(u => u.Name.Equals(login, StringComparison.CurrentCultureIgnoreCase));
         }
 
-        //public override User GetById(int id)
-        //{
-        //    return DbContext.AttachRange()
-        //}
+        public override User GetById(int id)
+        {
+            return DbContext.Users.Include(u => u.Assets).FirstOrDefault(u => u.Id == id);
+        }
     }
 }

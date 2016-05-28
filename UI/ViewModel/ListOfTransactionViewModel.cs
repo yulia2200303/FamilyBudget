@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using DAL.Model;
 using Prism.Commands;
 using UI.Logic.Filter;
 using UI.ViewModel.Common;
@@ -33,6 +34,9 @@ namespace UI.ViewModel
             this.SortCommand = new DelegateCommand<object>(OnSortChange);
             //this.FilterCommand = new DelegateCommand<object>(OnFilterChange);
             FilterChangeCommand = new DelegateCommand<object>(OnFilterChange);
+
+            var list = new List<Transaction>();
+            
         }
 
         private Filter _sort;

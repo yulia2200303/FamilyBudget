@@ -1,4 +1,6 @@
-﻿namespace UI.Logic.Filter
+﻿using Shared.Enum;
+
+namespace UI.Logic.Filter
 {
     public enum FilterType
     {
@@ -16,5 +18,12 @@
         ByCurrency = 2,
         ByCategory = 3,
         ByOperationType = 4
+    }
+
+    public enum OperationFilter
+    {
+        All = -1,
+        Debit = (int)OperationType.Debit,
+        Credit = (int)OperationType.Credit
     }
 }
