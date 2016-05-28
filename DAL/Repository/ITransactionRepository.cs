@@ -5,5 +5,6 @@ namespace DAL.Repository
 {
     public interface ITransactionRepository : IRepository<Transaction>
     {
+
     }
 }

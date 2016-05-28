@@ -1,7 +1,12 @@
 ﻿using System;
+using System.Linq;
+using Windows.UI;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using UI.ViewModel;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
@@ -41,43 +46,75 @@ namespace UI.Pages
             //}
         }
 
-        private void Hide_OnClick(object sender, RoutedEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void Show_OnClick(object sender, RoutedEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
 
         private void Navigate_ToCurrency(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(Currency));
         }
 
-        private void FlyoutBase_OnOpened(object sender, object e)
+        private DependencyObject FindChildControl<T>(DependencyObject control, string ctrlName)
         {
-            //BottomAppBar.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-            //DD.IsSticky = false;
-            //DD.IsOpen = false;
-            //BottomAppBar.ClosedDisplayMode = AppBarClosedDisplayMode.Hidden;
-       
-            //BottomAppBar.IsOpen = false;
+            int childNumber = VisualTreeHelper.GetChildrenCount(control);
+            for (int i = 0; i < childNumber; i++)
+            {
+                DependencyObject child = VisualTreeHelper.GetChild(control, i);
+                FrameworkElement fe = child as FrameworkElement;
+                // Not a framework element or is null
+                if (fe == null) return null;
 
+                if (child is T && fe.Name == ctrlName)
+                {
+                    // Found the control so return
+                    return child;
+                }
+                else
+                {
+                    // Not found it - search children
+                    DependencyObject nextLevel = FindChildControl<T>(child, ctrlName);
+                    if (nextLevel != null)
+                        return nextLevel;
+                }
+            }
+            return null;
         }
 
-        private void FlyoutBase_OnClosed(object sender, object e)
+        public static T FindParent<T>(DependencyObject element) where T : DependencyObject
         {
-       
+            while (element != null)
+            {
+                DependencyObject parent = VisualTreeHelper.GetParent(element);
+                T candidate = parent as T;
+                if (candidate != null)
+                {
+                    return candidate;
+                }
+
+                element = parent;
+            }
+
+            return default(T);
         }
 
-        private void Popup_OnOpened(object sender, object e)
-        {
-            //Popup.Height = ActualHeight;
-            //Popup.Width = ActualWidth;
-        }
 
+        private void UIElement_OnTapped(object sender, TappedRoutedEventArgs e)
+        {
+            var element = sender as UIElement;
+            var stackPanel = FindChildControl<StackPanel>(element, "StackPanelWrapper") as StackPanel;
+            if (stackPanel == null) return;
+            object value = 0;
+            if (stackPanel.ActualHeight > 68)
+            {
+                stackPanel?.Resources.TryGetValue("Hide", out value);
+                Storyboard storyboard = value as Storyboard;
+                storyboard?.Begin();
+            }
+            else
+            {
+                stackPanel?.Resources.TryGetValue("Show", out value);
+                Storyboard storyboard = value as Storyboard;
+                storyboard?.Begin();
+            }
+        }
 
     }
 }

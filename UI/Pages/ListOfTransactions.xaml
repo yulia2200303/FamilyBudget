@@ -1,0 +1,51 @@
+﻿<Page
+    x:Class="UI.Pages.ListOfTransactions"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UI.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:helpers="using:UI.MVVM.Helpers"
+    xmlns:userControl="using:UI.UserControl"
+    mc:Ignorable="d">
+    <Page.Resources>
+
+     
+
+
+        <Style x:Key="FilterItemStyle" TargetType="MenuFlyoutItem">
+            <Setter Property = "Foreground" Value="Red"/>
+            <Setter Property = "FontSize" Value="12"/>
+            <Setter Property = "Padding" Value="20,15" />
+        </Style>
+    </Page.Resources>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <ScrollViewer Grid.Row="0" 
+                              HorizontalScrollBarVisibility="Hidden" 
+                              HorizontalScrollMode="Enabled"
+                              VerticalScrollBarVisibility="Disabled">
+            <StackPanel Orientation="Horizontal" Margin="20,10,20,0" >
+
+                <!--<helpers:ComboBoxExt  SelectedItem="{Binding Sort.SelectedItem}" Title="{Binding Sort.Name}" ItemsSource="{Binding Sort.Categories}" OnSelectedCommand="{Binding SortCommand}">
+                    <helpers:ComboBoxExt.ItemTemplate>
+                        <DataTemplate>
+                            <MenuFlyoutItem Text="{Binding Name}" CommandParameter="{Binding}" ></MenuFlyoutItem>
+                        </DataTemplate>
+                    </helpers:ComboBoxExt.ItemTemplate>
+                </helpers:ComboBoxExt>-->
+
+
+                <userControl:CustomCombobox VerticalAlignment="Center" HorizontalAlignment="Center" Title="tEST" ItemsSource="{Binding Sort.Categories}"  SelectedItem="{Binding Test}" OnSelectedCommand="{Binding FilterChangeCommand}" />
+
+                <!--<ItemsControl x:Name="Filters" ItemsSource="{Binding Filters}" ItemTemplate="{StaticResource FiltersTemplate}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,0"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>-->
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

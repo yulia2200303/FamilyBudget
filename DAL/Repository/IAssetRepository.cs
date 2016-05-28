@@ -7,5 +7,6 @@ namespace DAL.Repository
     public interface IAssetRepository : IRepository<Asset>
     {
         bool IsAssetExists(string name);
+        double GetSummary(int assetId);
     }
 }

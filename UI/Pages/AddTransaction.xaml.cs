@@ -2,6 +2,7 @@
 using Windows.UI.Xaml.Navigation;
 using DAL.Model;
 using UI.ViewModel;
+using UI.ViewModel.Common;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -25,7 +26,7 @@ namespace UI.Pages
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var model = new AddTransactionViewModel((Asset)e.Parameter);
+            var model = new AddTransactionViewModel((AssetViewModel)e.Parameter);
             DataContext = model;
         }
     }

@@ -44,7 +44,7 @@ namespace DAL.Repository.Common
             return Insert(entity);
         }
 
-        public T GetById(int id)
+        public virtual T GetById(int id)
         {
             return DbSet.FirstOrDefault(e => e.Id == id);
         }

@@ -1,0 +1,76 @@
+﻿<UserControl
+    x:Class="UI.UserControl.CustomCombobox"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UI"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:helpers="using:UI.MVVM.Helpers"
+    xmlns:converter="using:UI.MVVM.Converter"
+    mc:Ignorable="d"
+    x:Name="Control"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+
+    <UserControl.Resources>
+
+        <converter:ToUpperValueConverter x:Name="ToUpperValueConverter"/>
+
+        <Style TargetType="Button" x:Name="BtnStyle">
+            <Setter Property="Background" Value="SlateGray"></Setter>
+            <Setter Property="Height" Value="50"></Setter>
+            <Setter Property="BorderThickness" Value="0"></Setter>
+            <Setter Property="BorderBrush" Value="Transparent"></Setter>
+            <Setter Property="Padding" Value="5"></Setter>
+            <Setter Property="Width" Value="110"></Setter>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Name="TitleStyle">
+            <Setter Property="FontSize" Value="12"></Setter>
+        </Style>
+
+        <Style TargetType="FontIcon" x:Name="IconStyle" x:Key="IconStyle">
+            <Setter Property="HorizontalAlignment" Value="Right"></Setter>
+            <Setter Property="VerticalAlignment" Value="Top"></Setter>
+            <Setter Property="Glyph" Value="&#xE0E5;"></Setter>
+            <Setter Property="Margin" Value="0, 0, 10, 0"></Setter>
+            <Setter Property="FontWeight" Value="Bold"></Setter>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Name="TextStyle" x:Key="TextStyle">
+            <Setter Property="FontSize" Value="12"></Setter>
+            <Setter Property="TextWrapping" Value="WrapWholeWords"></Setter>
+            <Setter Property="Height" Value="30"></Setter>
+            <Setter Property="LineHeight" Value="0"></Setter>
+        </Style>
+
+    </UserControl.Resources>
+
+    <Button x:Name="RootButton"  Click="Button_Click"  Style="{StaticResource BtnStyle}">
+        <Grid  HorizontalAlignment="Stretch" Margin="0, -10, 0, -8" Padding="0"
+          Width="{Binding ElementName=RootButton, Path=ActualWidth}" VerticalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="26" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="{x:Bind Title, Converter={StaticResource ToUpperValueConverter}}" Grid.ColumnSpan="2" Style="{StaticResource TitleStyle}"></TextBlock>
+            <FontIcon Grid.Row="0" Grid.Column="1"  Style="{StaticResource IconStyle}" FontSize="13" />
+            <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Margin="0, -3, 0, 0"  Text="Tet etxt etx etx text dfdsf" Grid.Column="0" LineHeight="2" Style="{StaticResource TextStyle}"  />
+        </Grid>
+        <!--{x:Bind selectedItem, Mode=OneWay}-->
+        <Button.Flyout>
+            <Flyout helpers:BindableFlyout.ItemsSource="{Binding Path=ItemsSource, ElementName=Control}"  Placement="Full">
+                <helpers:BindableFlyout.ItemTemplate>
+                    <DataTemplate>
+                        <MenuFlyoutItem Text="{Binding Name}"  Click="MenuFlyoutItem_Click" />
+                    </DataTemplate>
+                </helpers:BindableFlyout.ItemTemplate>
+            </Flyout>
+        </Button.Flyout>
+    </Button>
+
+</UserControl>

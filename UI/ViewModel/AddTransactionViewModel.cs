@@ -44,7 +44,7 @@ namespace UI.ViewModel
             DateChangedCommand = new DelegateCommand<object>(OnDateChangedCommand);
         }
 
-        public AddTransactionViewModel(Asset asset) : this()
+        public AddTransactionViewModel(AssetViewModel asset) : this()
         {
             SelectedAsset = Assets.First(a => a.Id == asset.Id);
         }

@@ -20,5 +20,10 @@ namespace DAL.Repository
         {
             return DbContext.Users.FirstOrDefault(u => u.Name.Equals(login, StringComparison.CurrentCultureIgnoreCase));
         }
+
+        //public override User GetById(int id)
+        //{
+        //    return DbContext.AttachRange()
+        //}
     }
 }

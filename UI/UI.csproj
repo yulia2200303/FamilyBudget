@@ -105,6 +105,15 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Logic\Filter\FilterHelper.cs" />
+    <Compile Include="Logic\Filter\Filter.cs" />
+    <Compile Include="Logic\Filter\FilterData.cs" />
+    <Compile Include="Logic\Filter\FilterType.cs" />
+    <Compile Include="MVVM\Converter\ToUpperValueConverter.cs" />
+    <Compile Include="UserControl\CustomCombobox.xaml.cs">
+      <DependentUpon>CustomCombobox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Logic\AssetHelper.cs" />
     <Compile Include="Logic\CurrencyWrapper.cs" />
     <Compile Include="Logic\Extension\StringExt.cs" />
     <Compile Include="Logic\SaltedHash.cs" />
@@ -116,6 +125,8 @@
     <Compile Include="MVVM\Command\PasswordChangeTextCommnand.cs" />
     <Compile Include="MVVM\Converter\BooleanToVisibilityConverter.cs" />
     <Compile Include="MVVM\Converter\DateTimeToDateTimeOffsetConverter.cs" />
+    <Compile Include="MVVM\Helpers\BindableFlyout.cs" />
+    <Compile Include="MVVM\Helpers\ComboBoxExt.cs" />
     <Compile Include="MVVM\Helpers\FlyoutHelpers.cs" />
     <Compile Include="MVVM\Validation\RequiredIfAttribute.cs" />
     <Compile Include="MVVM\Validation\UniqueAssetAttibute.cs" />
@@ -125,6 +136,9 @@
     </Compile>
     <Compile Include="Pages\Currency.xaml.cs">
       <DependentUpon>Currency.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ListOfTransactions.xaml.cs">
+      <DependentUpon>ListOfTransactions.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -141,8 +155,10 @@
     </Compile>
     <Compile Include="ViewModel\AccountViewModel.cs" />
     <Compile Include="ViewModel\AddTransactionViewModel.cs" />
+    <Compile Include="ViewModel\AssetViewModel.cs" />
     <Compile Include="ViewModel\Common\BaseViewModel.cs" />
     <Compile Include="ViewModel\CurrencyViewModel.cs" />
+    <Compile Include="ViewModel\ListOfTransactionViewModel.cs" />
     <Compile Include="ViewModel\MyAssetsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -171,11 +187,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="UserControl\CustomCombobox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\AddTransaction.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Currency.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ListOfTransactions.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -204,7 +228,11 @@
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\ExchangeRatesService\" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <SDKReference Include="BehaviorsXamlSDKManaged, Version=12.0">
+      <Name>Behaviors SDK %28XAML%29</Name>
+    </SDKReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
