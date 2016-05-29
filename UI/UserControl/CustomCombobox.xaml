@@ -59,7 +59,7 @@
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" Grid.Column="0" Text="{x:Bind Title, Converter={StaticResource ToUpperValueConverter}}" Grid.ColumnSpan="2" Style="{StaticResource TitleStyle}"></TextBlock>
             <FontIcon Grid.Row="0" Grid.Column="1"  Style="{StaticResource IconStyle}" FontSize="13" />
-            <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Margin="0, -3, 0, 0"  Text="Tet etxt etx etx text dfdsf" Grid.Column="0" LineHeight="2" Style="{StaticResource TextStyle}"  />
+            <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Margin="0, -3, 0, 0"  Text="{x:Bind SelectedItem, Mode=TwoWay}" Grid.Column="0" LineHeight="2" Style="{StaticResource TextStyle}"  />
         </Grid>
         <!--{x:Bind selectedItem, Mode=OneWay}-->
         <Button.Flyout>

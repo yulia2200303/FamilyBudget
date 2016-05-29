@@ -24,11 +24,9 @@ namespace UI.ViewModel
     {
         public MyAssetsViewModel()
         {
-            var userName = Logic.UserContext.Current.UserName;
-
             using (var uow = new UnitOfWork())
             {
-               // var user1 = uow.UserRepository.GetByQuery(u => u.Id == Logic.UserContext.Current.UserId, null, x => x.Assets);
+                // var user1 = uow.UserRepository.GetByQuery(u => u.Id == Logic.UserContext.Current.UserId, null, x => x.Assets);
 
                 User = uow.UserRepository.GetById(Logic.UserContext.Current.UserId);
                 var assetHepler = new AssetHelper(User.Id);
@@ -40,8 +38,8 @@ namespace UI.ViewModel
 
             AddTransactionCommand = new Microsoft.Practices.Prism.Commands.DelegateCommand<AssetViewModel>(OnAddTransactionClick);
             AddAssetCommand = new DelegateCommand(OnAddAsset);
-            NavigateToTransactionList = new DelegateCommand(OnNavigateToTransactionList);
-
+            NavigateToTransactionList = new DelegateCommand<AssetViewModel>(OnNavigateToTransactionList);
+            NavigateToDeleteTransaction = new Microsoft.Practices.Prism.Commands.DelegateCommand<AssetViewModel>(OnNavigateToDeleteTransaction);
             FilterChangeCommand = new DelegateCommand<object>(OnFilterChange);
         }
 
@@ -131,7 +129,7 @@ namespace UI.ViewModel
             {
                 UserId = User.Id,
                 Name = AssetName,
-                Type = (int) AssetType.Default,
+                Type = (int)AssetType.Default,
             };
 
             using (var uow = new UnitOfWork())
@@ -155,10 +153,18 @@ namespace UI.ViewModel
 
         public ICommand NavigateToTransactionList { get; }
 
-        private void OnNavigateToTransactionList()
+        private void OnNavigateToTransactionList(AssetViewModel assetModel)
         {
             var root = Window.Current.Content as Frame;
-            root.Navigate(typeof (ListOfTransactions));
+            root.Navigate(typeof(ListOfTransactions), assetModel.Id);
+        }
+
+        public ICommand NavigateToDeleteTransaction { get; }
+
+        private void OnNavigateToDeleteTransaction(AssetViewModel assetModel)
+        {
+            var root = Window.Current.Content as Frame;
+            root.Navigate(typeof(DeleteTransactions), assetModel.Id);
         }
     }
 }

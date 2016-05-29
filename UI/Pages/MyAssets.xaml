@@ -42,9 +42,9 @@
                             <TextBlock FontSize="18" Text="{Binding Cost}" HorizontalAlignment="Right" Foreground="Blue"></TextBlock>
 
                             <StackPanel x:Name="StackPanelBtn" Background="Pink" Height="0" Margin="10">
-                                <Button Content="Delete a  Transaction" Command="{Binding ElementName=Main, Path=DataContext.NavigateToTransactionList}"></Button>
-                                <Button Content="Add a Transaction" Command="{Binding ElementName=Main, Path=DataContext.AddTransactionCommand}" CommandParameter="{Binding}"></Button>
-                                <Button Content="List of transaction"></Button>
+                                <Button Content="Add a transaction" Command="{Binding ElementName=Main, Path=DataContext.AddTransactionCommand}" CommandParameter="{Binding}"></Button>
+                                <Button Content="List of transaction" Command="{Binding ElementName=Main, Path=DataContext.NavigateToTransactionList}" CommandParameter="{Binding}"></Button>
+                                <Button Content="Delete a transaction" Command="{Binding ElementName=Main, Path=DataContext.NavigateToDeleteTransaction}" CommandParameter="{Binding}"></Button>
                             </StackPanel>
                         </StackPanel>
                     </Grid>

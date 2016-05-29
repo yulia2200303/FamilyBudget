@@ -8,16 +8,14 @@ namespace UI.Logic.Filter
 {
     public class Filter
     {
-        public static readonly int AllFilter = -1;
         public Filter()
         {
-            Categories = new List<FilterData>();
-            //SelectedValue = AllFilter;
+            Items = new List<FilterData>();
         }
         public string Name { get; set; }
         public FilterData SelectedItem { get; set; }
-        public List<FilterData> Categories { get; set; }
+        public List<FilterData> Items { get; set; }
 
-        public FilterData DefaultValue => Categories.Count > 0 ? Categories[0] : null;
+        public FilterData DefaultValue => Items.Count > 0 ? Items[0] : null;
     }
 }

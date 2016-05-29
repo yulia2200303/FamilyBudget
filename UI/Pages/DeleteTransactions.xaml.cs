@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using DAL.Model;
 using UI.ViewModel;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
@@ -21,18 +22,33 @@ namespace UI.Pages
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class ListOfTransactions : Page
+    public sealed partial class DeleteTransactions : Page
     {
-        public ListOfTransactions()
+        private DeleteTransactionsViewModel model;
+        public DeleteTransactions()
         {
             this.InitializeComponent();
-           
+
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var model = new ListOfTransactionViewModel((int)e.Parameter);
+            model = new DeleteTransactionsViewModel((int)e.Parameter);
             DataContext = model;
+        }
+
+        private async void DeleteTransactionBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var selectedItems = TransactionGridView.SelectedItems.Cast<Transaction>().ToList();
+                await model.Remove(selectedItems);
+            }
+            catch (Exception ex)
+            {
+                var x = ex;
+            }
+
         }
     }
 }

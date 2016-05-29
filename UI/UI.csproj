@@ -11,7 +11,7 @@
     <AssemblyName>UI</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion>10.0.10586.0</TargetPlatformVersion>
+    <TargetPlatformVersion>10.0.10240.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
@@ -105,16 +105,25 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Logic\CurrencyConverter.cs" />
+    <Compile Include="Logic\EnumHelper.cs" />
+    <Compile Include="Logic\Filter\FilterBuilder.cs" />
     <Compile Include="Logic\Filter\TransactionFilterExt.cs" />
     <Compile Include="Logic\Filter\Filter.cs" />
     <Compile Include="Logic\Filter\FilterData.cs" />
     <Compile Include="Logic\Filter\FilterType.cs" />
+    <Compile Include="MVVM\Converter\CollectionVisibilityConverter.cs" />
+    <Compile Include="MVVM\Converter\DateTimeToStringConverter.cs" />
+    <Compile Include="MVVM\Converter\OperationTypeToStringConverter.cs" />
     <Compile Include="MVVM\Converter\ToUpperValueConverter.cs" />
+    <Compile Include="Pages\DeleteTransactions.xaml.cs">
+      <DependentUpon>DeleteTransactions.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControl\CustomCombobox.xaml.cs">
       <DependentUpon>CustomCombobox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Logic\AssetHelper.cs" />
-    <Compile Include="Logic\CurrencyWrapper.cs" />
+    <Compile Include="Logic\CurrencyServiceWrapper.cs" />
     <Compile Include="Logic\Extension\StringExt.cs" />
     <Compile Include="Logic\SaltedHash.cs" />
     <Compile Include="Logic\SerializeWrapper.cs" />
@@ -158,6 +167,7 @@
     <Compile Include="ViewModel\AssetViewModel.cs" />
     <Compile Include="ViewModel\Common\BaseViewModel.cs" />
     <Compile Include="ViewModel\CurrencyViewModel.cs" />
+    <Compile Include="ViewModel\DeleteTransactionsViewModel.cs" />
     <Compile Include="ViewModel\ListOfTransactionViewModel.cs" />
     <Compile Include="ViewModel\MyAssetsViewModel.cs" />
   </ItemGroup>
@@ -187,6 +197,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Pages\DeleteTransactions.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControl\CustomCombobox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

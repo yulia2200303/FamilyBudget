@@ -44,7 +44,7 @@ namespace UI
                     db.Database.Migrate();
                     FamilyBudgetInitializer.Initialize();
 
-                    new CurrencyWrapper().RefreshCurrencies();
+                    new CurrencyServiceWrapper().RefreshCurrencies();
                 }
             }
             catch (Exception ex)

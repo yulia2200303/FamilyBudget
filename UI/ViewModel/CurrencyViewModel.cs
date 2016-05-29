@@ -50,7 +50,7 @@ namespace UI.ViewModel
             {
                 using (var uow = new UnitOfWork())
                 {
-                    var cwWrapper = new CurrencyWrapper();
+                    var cwWrapper = new CurrencyServiceWrapper();
                     await cwWrapper.RefreshCurrencies();
                     var currencies = uow.CurrencyRepository.GetCurrenciesByCode(excludedCodes: new[] { CurrencyCode.BelarussianRub });
                     Currencies = new ObservableCollection<DAL.Model.Currency>(currencies);

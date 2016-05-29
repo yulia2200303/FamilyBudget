@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.UI.Popups;
 using DAL.Common;
 using DAL.Model;
-using Prism.Commands;
+using Microsoft.Practices.Prism.Commands;
 using Shared.Constant;
 using Shared.Enum;
 using UI.Logic;
@@ -15,61 +17,58 @@ using UI.ViewModel.Common;
 
 namespace UI.ViewModel
 {
-    class ListOfTransactionViewModel : BaseViewModel
+    public class DeleteTransactionsViewModel : BaseViewModel
     {
-
-        public ListOfTransactionViewModel(int assetId)
+        private int assetId;
+        public DeleteTransactionsViewModel(int assetId)
         {
+            this.assetId = assetId;
             FilterChangeCommand = new DelegateCommand<object>(OnFilterChange);
             Filters = new ObservableCollection<Filter>(FilterBuilder.BuildFilters());
 
+            InitializeTransactions();
+        }
+
+        private void InitializeTransactions()
+        {
             using (var uow = new UnitOfWork())
             {
                 _sourceTransactions = uow.TransactionRepository.GetByAssetId(assetId);
                 Transactions = new ObservableCollection<Transaction>(_sourceTransactions.Filter(Filters.Select(f => f.SelectedItem)));
             }
-
-            Sum = GetBalance();
         }
 
-        private readonly List<Transaction> _sourceTransactions;
+        private List<Transaction> _sourceTransactions;
 
         private const int IndexOfSubCategoryFilter = 4;
-        private const int IndexOfCurrencyFilter = 2;
 
-        private string _sum;
 
-        public string Sum
+        public async Task Remove(IEnumerable<Transaction> transactions)
         {
-            get { return _sum; }
-            set { SetProperty(ref _sum, value); }
-        }
+            var dialog = new MessageDialog("Вы точно хотите удалить выбранные элементы");
 
-        private string GetBalance()
-        {
-            var filter = Filters[IndexOfCurrencyFilter].SelectedItem;
+            dialog.Commands.Add(new UICommand("Ok") { Id = 0 });
 
-            string code = CurrencyCode.BelarussianRub;
-            if (filter.Value != null)
+            dialog.Commands.Add(new UICommand("Cancel") { Id = 1 });
+
+            dialog.DefaultCommandIndex = 0;
+
+            dialog.CancelCommandIndex = 1;
+
+            var result = await dialog.ShowAsync();
+
+            if ((int)result.Id == 1) return;
+
+            using (var uow = new UnitOfWork())
             {
-                code = new UnitOfWork().CurrencyRepository.GetById((int)filter.Value).Code;
-            }
-
-            var currencyConverter = new CurrencyConverter();
-
-            decimal sum = 0;
-            foreach (var transaction in Transactions)
-            {
-                if (transaction.Type == (int)OperationType.Debit)
+                foreach (var transaction in transactions)
                 {
-                    sum -= (decimal)(transaction.Cost * currencyConverter.Convert(transaction.Currency.Code, code));
+                    uow.TransactionRepository.Delete(transaction);
                 }
-                else
-                {
-                    sum += (decimal)(transaction.Cost * currencyConverter.Convert(transaction.Currency.Code, code));
-                }
+
+                uow.Commit();
             }
-            return $"{Math.Round(sum, 2)} {code}";
+            InitializeTransactions();
         }
 
 
@@ -107,8 +106,6 @@ namespace UI.ViewModel
                 Filters[filterIndex].SelectedItem = filterDate;
 
                 Transactions = new ObservableCollection<Transaction>(_sourceTransactions.Filter(Filters.Select(f => f.SelectedItem)));
-
-                Sum = GetBalance();
             }
             catch (Exception ex)
             {
@@ -130,4 +127,3 @@ namespace UI.ViewModel
 
     }
 }
-

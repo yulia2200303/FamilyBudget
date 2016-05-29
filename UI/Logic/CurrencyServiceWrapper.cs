@@ -11,13 +11,13 @@ using UI.Logic.Extension;
 
 namespace UI.Logic
 {
-    public class CurrencyWrapper
+    public class CurrencyServiceWrapper
     {
         private readonly string[] _availablyCurrencies;
         private readonly ExRatesSoapClient _client;
 
 
-        public CurrencyWrapper()
+        public CurrencyServiceWrapper()
         {
             _client = new ExRatesSoapClient();
             _availablyCurrencies = new[]
