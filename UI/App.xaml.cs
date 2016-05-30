@@ -35,10 +35,11 @@ namespace UI
             Suspending += OnSuspending;
 
           
-
             // var x1 = ApplicationData.Current.LocalFolder;
             try
             {
+                LocalizationHelper.SetLocale(LocalizationHelper.GetCurrentLocale());
+
                 using (var db = new FamilyBudgetContext())
                 {
                     db.Database.Migrate();

@@ -116,5 +116,9 @@ namespace UI.Pages
             }
         }
 
+        private void Navigate_ToSettings(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof (Settings));
+        }
     }
 }

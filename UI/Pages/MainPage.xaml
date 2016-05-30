@@ -15,8 +15,7 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" x:Name="Main">
         <StackPanel>
 
-            <Button x:Name="button1" Content="Button" HorizontalAlignment="Left" Height="100"
-                VerticalAlignment="Top" Click="click_b" />
+       
             <ListView x:Name="Users" ItemsSource="{Binding Users}"  commands:ListViewItemClickCommand.Command="{Binding LoginCommand}" RightTapped="UIElement_OnRightTapped" Holding="UIElement_OnHolding">
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -51,7 +50,7 @@
                        HorizontalAlignment="Right" />
                   
                 </StackPanel>
-                <Button Content="Add" HorizontalAlignment="Center" Command="{Binding AddUserCommand}" Height="74" Margin="114,0,85,0" Width="161"></Button>
+                <Button x:Uid="AddBtn" Content="Add" HorizontalAlignment="Center" Command="{Binding AddUserCommand}" Height="74" Margin="114,0,85,0" Width="161"></Button>
             </StackPanel>
         </StackPanel>
     </Grid>

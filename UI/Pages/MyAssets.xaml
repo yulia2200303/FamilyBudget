@@ -58,6 +58,7 @@
         <AppBar x:Name="DD" IsOpen="False"  IsSticky="True" ClosedDisplayMode="Minimal">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
                 <AppBarButton Name="Show" Icon="Accept" Label="Currency" Click="Navigate_ToCurrency" />
+                <AppBarButton Name="Button" Icon="Accept" Label="Settings" Click="Navigate_ToSettings"></AppBarButton>
                 <AppBarButton Name="AddAssetBtn" Icon="Accept" Label="Add Asset">
                     <AppBarButton.Flyout>
                         <Flyout Placement="Full"  helpers:FlyoutHelpers.Parent="{Binding ElementName=AddAssetBtn}" helpers:FlyoutHelpers.IsOpen="{Binding IsFlyoutOpen, Mode=TwoWay}">

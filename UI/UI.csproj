@@ -112,12 +112,16 @@
     <Compile Include="Logic\Filter\Filter.cs" />
     <Compile Include="Logic\Filter\FilterData.cs" />
     <Compile Include="Logic\Filter\FilterType.cs" />
+    <Compile Include="Logic\LocalizationHelper.cs" />
     <Compile Include="MVVM\Converter\CollectionVisibilityConverter.cs" />
     <Compile Include="MVVM\Converter\DateTimeToStringConverter.cs" />
     <Compile Include="MVVM\Converter\OperationTypeToStringConverter.cs" />
     <Compile Include="MVVM\Converter\ToUpperValueConverter.cs" />
     <Compile Include="Pages\DeleteTransactions.xaml.cs">
       <DependentUpon>DeleteTransactions.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Settings.xaml.cs">
+      <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControl\CustomCombobox.xaml.cs">
       <DependentUpon>CustomCombobox.xaml</DependentUpon>
@@ -170,6 +174,7 @@
     <Compile Include="ViewModel\DeleteTransactionsViewModel.cs" />
     <Compile Include="ViewModel\ListOfTransactionViewModel.cs" />
     <Compile Include="ViewModel\MyAssetsViewModel.cs" />
+    <Compile Include="ViewModel\SettingsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -180,6 +185,10 @@
     <None Include="Service References\ExchangeRatesService\UI.ExchangeRatesService.ArrayOfXElement.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <PRIResource Include="Strings\en-US\Resources.resw" />
+    <PRIResource Include="Strings\ru-RU\Resources.resw" />
+    <PRIResource Include="Strings\de-DE\Resources.resw" />
+    <PRIResource Include="Strings\be-BE\Resources.resw" />
     <None Include="UI_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
@@ -198,6 +207,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="Pages\DeleteTransactions.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Settings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -247,6 +260,7 @@
       <Name>Behaviors SDK %28XAML%29</Name>
     </SDKReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
