@@ -113,6 +113,7 @@
     <Compile Include="Logic\Filter\FilterData.cs" />
     <Compile Include="Logic\Filter\FilterType.cs" />
     <Compile Include="Logic\LocalizationHelper.cs" />
+    <Compile Include="Model\ImportModel.cs" />
     <Compile Include="MVVM\Converter\CollectionVisibilityConverter.cs" />
     <Compile Include="MVVM\Converter\DateTimeToStringConverter.cs" />
     <Compile Include="MVVM\Converter\OperationTypeToStringConverter.cs" />

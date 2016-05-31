@@ -17,6 +17,9 @@
                       HorizontalAlignment="Stretch"></ComboBox>
 
             <Button  x:Uid="ApplyBtn"  Command="{Binding ChangeLocaleCommand}"></Button>
+            
+            <Button Content="Export" Command="{Binding ExportCommand}"></Button>
+            <Button Content="Import" Command="{Binding ImportCommand}"></Button>
         </StackPanel>
     </Grid>
 </Page>

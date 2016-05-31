@@ -8,5 +8,6 @@ namespace DAL.Repository
     {
         bool IsAssetExists(string name);
         double GetSummary(int assetId);
+        List<Asset> GetByUserId(int userId);
     }
 }

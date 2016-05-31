@@ -5,10 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Windows.Storage;
+using Windows.Storage.Pickers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Imaging;
+using DAL.Common;
+using Newtonsoft.Json;
 using Prism.Commands;
 using UI.Logic;
+using UI.Model;
 using UI.Pages;
 using UI.ViewModel.Common;
 
@@ -28,6 +34,8 @@ namespace UI.ViewModel
             Languages = new ObservableCollection<ComboboxItem>(supportedLanguages);
             SelectedLanguage = supportedLanguages.First(l => l.Value.ToString() == LocalizationHelper.GetCurrentLocale());
             ChangeLocaleCommand = new DelegateCommand(OnChangeLocale);
+            ExportCommand = new DelegateCommand(OnExportCommand);
+            ImportCommand = new DelegateCommand(OnImportCommand);
         }
 
 
@@ -63,6 +71,89 @@ namespace UI.ViewModel
             await Task.Delay(500);
             var rootFrame = Window.Current.Content as Frame;
             rootFrame?.Navigate(rootFrame.Content.GetType());
+        }
+
+        public ICommand ExportCommand { get; }
+
+        private async void OnExportCommand()
+        {
+            var userId = UserContext.Current.UserId;
+            var model = new ImportModel();
+            using (var uow = new UnitOfWork())
+            {
+                var categoryList = new List<ImportCategoryModel>();
+                var categories = uow.CategoryRepository.GetCategories();
+                foreach (var category in categories)
+                {
+                    categoryList.Add(new ImportCategoryModel()
+                    {
+                        Name = category.Name,
+                        Subcategories = category.SubCategories.Select(c => c.Name).ToList()
+                    });
+                }
+
+                model.Categories = categoryList;
+
+                var assets = uow.AssetRepository.GetByUserId(userId);
+
+                model.Assets = assets.Select(a => a.Name).ToList();
+                var transactions = new List<ImportTransactionModel>();
+                foreach (var asset in assets)
+                {
+                    var transactionList = uow.TransactionRepository.GetByAssetId(asset.Id);
+                    foreach (var transaction in transactionList)
+                    {
+                        transactions.Add(new ImportTransactionModel()
+                        {
+                            Asset = asset.Name,
+                            Subcategory = transaction.Product.Name,
+                            Category = transaction.Product.Parent.Name,
+                            Comment = transaction.Comment,
+                            Cost = transaction.Cost,
+                            Curency = transaction.Currency.Code,
+                            Date = transaction.Date,
+                            Type = transaction.Type
+                        });
+                    }
+                }
+
+                model.Transactions = transactions;
+            }
+
+            var sm = JsonConvert.SerializeObject(model);
+
+            var savePicker = new Windows.Storage.Pickers.FileSavePicker();
+            savePicker.SuggestedStartLocation =
+                Windows.Storage.Pickers.PickerLocationId.DocumentsLibrary;
+            // Dropdown of file types the user can save the file as
+            savePicker.FileTypeChoices.Add("Plain Text", new List<string>() { ".json" });
+            // Default file name if the user does not type one in or select a file to replace
+            savePicker.SuggestedFileName = "New Document";
+            Windows.Storage.StorageFile file = await savePicker.PickSaveFileAsync();
+
+            await Windows.Storage.FileIO.WriteTextAsync(file, sm);
+
+        }
+
+        public ICommand ImportCommand { get; }
+
+        private async void OnImportCommand()
+        {
+            FileOpenPicker openPicker = new FileOpenPicker();
+            openPicker.ViewMode = PickerViewMode.Thumbnail;
+            openPicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
+            openPicker.FileTypeFilter.Add(".json");
+
+
+            StorageFile file = await openPicker.PickSingleFileAsync();
+
+
+            if (file != null)
+            {
+                var sm = await Windows.Storage.FileIO.ReadTextAsync(file);
+
+                var model = JsonConvert.DeserializeObject<ImportModel>(sm);
+            }
         }
     }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DAL.Model;
 using DAL.Repository.Common;
+using Microsoft.Data.Entity;
 
 namespace DAL.Repository
 {
@@ -15,7 +16,7 @@ namespace DAL.Repository
 
         public List<Category> GetCategories()
         {
-            return DbContext.Categories.Where(c => c.ParentId == null).ToList();
+            return DbContext.Categories.Include(c => c.SubCategories).Where(c => c.ParentId == null).ToList();
         }
 
         public List<Category> GetSubCategories(string category)

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DAL.Model;
 using DAL.Repository.Common;
@@ -17,6 +18,11 @@ namespace DAL.Repository
         {
             return DbContext.Assets.Any(a => a.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase));
         }
+
+        public List<Asset> GetByUserId(int userId)
+        {
+            return DbContext.Assets.Where(a => a.UserId == userId).ToList();
+        } 
 
         public double GetSummary(int assetId)
         {
