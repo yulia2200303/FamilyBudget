@@ -29,5 +29,45 @@ namespace DAL.Repository
                             c.Parent.Name.Equals(category, StringComparison.CurrentCultureIgnoreCase))
                     .ToList();
         }
+
+        public void InsertCategories(IEnumerable<string> categories)
+        {
+            var dbcategories = GetCategories();
+
+            foreach (var category in categories)
+            {
+                if (!dbcategories.Any(c => c.Name.Equals(category, StringComparison.CurrentCultureIgnoreCase)))
+                {
+                    Insert(new Category
+                    {
+                        Name = category
+                    });
+                }
+                
+            }
+        }
+
+        public void InsertSubcategories(string category, IEnumerable<string> subcategories)
+        {
+            var dbCategory =
+                DbContext.Categories.FirstOrDefault(
+                    c => c.Parent == null && c.Name.Equals(category, StringComparison.CurrentCultureIgnoreCase));
+
+            if(dbCategory == null) return;
+
+            var dbSubcategories = GetSubCategories(dbCategory.Name);
+            foreach (var subcategory in subcategories)
+            {
+                if (!dbSubcategories.Any(s => s.Name.Equals(subcategory, StringComparison.CurrentCultureIgnoreCase)))
+                {
+                    Insert(new Category()
+                    {
+                        Name = subcategory,
+                        ParentId = dbCategory.Id
+                    });
+                }
+            }
+
+        }
     }
 }

@@ -8,5 +8,7 @@ namespace DAL.Repository
     {
         List<Category> GetCategories();
         List<Category> GetSubCategories(string category);
+        void InsertCategories(IEnumerable<string> categories);
+        void InsertSubcategories(string category, IEnumerable<string> subcategories);
     }
 }

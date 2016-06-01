@@ -7,10 +7,12 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.Storage;
 using Windows.Storage.Pickers;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 using DAL.Common;
+using DAL.Model;
 using Newtonsoft.Json;
 using Prism.Commands;
 using UI.Logic;
@@ -139,6 +141,14 @@ namespace UI.ViewModel
 
         private async void OnImportCommand()
         {
+            var dialog =new MessageDialog("Восстановить данные? Всяк текущая информация будет потеряна");
+            dialog.Commands.Add(new UICommand("Yes", null, 1));
+            dialog.Commands.Add(new UICommand("No", null, 0));
+            var result = await dialog.ShowAsync();
+            if((int)result.Id == 0) return;
+
+            var userId = UserContext.Current.UserId;
+
             FileOpenPicker openPicker = new FileOpenPicker();
             openPicker.ViewMode = PickerViewMode.Thumbnail;
             openPicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
@@ -153,6 +163,47 @@ namespace UI.ViewModel
                 var sm = await Windows.Storage.FileIO.ReadTextAsync(file);
 
                 var model = JsonConvert.DeserializeObject<ImportModel>(sm);
+
+                using (var uow = new UnitOfWork())
+                {
+                    uow.AssetRepository.RemoveByUserId(userId);
+                    uow.Commit();
+
+                    uow.AssetRepository.Insert(userId, model.Assets);
+                    uow.Commit();
+
+                    uow.CategoryRepository.InsertCategories(model.Categories.Select(s => s.Name));
+                    uow.Commit();
+
+                    foreach (var importCategory in model.Categories)
+                    {
+                        uow.CategoryRepository.InsertSubcategories(importCategory.Name, importCategory.Subcategories);
+                    }
+                    uow.Commit();
+
+                    var assets = uow.AssetRepository.GetByUserId(userId).ToDictionary(c=> c.Name, c => c.Id);
+                    var categories = uow.CategoryRepository.GetByQuery(c => c.Parent == null)
+                        .ToDictionary(c => c.Name, c => c.SubCategories.ToDictionary(s => s.Name, s => s.Id));
+                    var currencies = uow.CurrencyRepository.GetAll().ToDictionary(c => c.Code, c => c.Id);
+
+
+                    foreach (var importTransactionModel in model.Transactions)
+                    {
+                        var transaction = new Transaction
+                        {
+                            Comment = importTransactionModel.Comment,
+                            Cost = importTransactionModel.Cost,
+                            Date = importTransactionModel.Date,
+                            Type = importTransactionModel.Type,
+                            AssetId = assets[importTransactionModel.Asset],
+                            CurrencyId = currencies[importTransactionModel.Curency],
+                            ProductId = categories[importTransactionModel.Category][importTransactionModel.Subcategory]
+                        };
+                        uow.TransactionRepository.Insert(transaction);
+                    }
+
+                    uow.Commit();
+                }
             }
         }
     }

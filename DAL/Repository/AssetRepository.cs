@@ -22,7 +22,34 @@ namespace DAL.Repository
         public List<Asset> GetByUserId(int userId)
         {
             return DbContext.Assets.Where(a => a.UserId == userId).ToList();
-        } 
+        }
+
+        public void RemoveByUserId(int userId)
+        {
+            var assets = DbContext.Assets.Where(a => a.UserId == userId);
+            foreach (var asset in assets)
+            {
+                Delete(asset);
+            }
+        }
+
+        public void Insert(int userId, IEnumerable<string> assets)
+        {
+            var dbAssets = GetByUserId(userId);
+
+            foreach (var asset in assets)
+            {
+                if (!dbAssets.Any(a => a.Name.Equals(asset, StringComparison.CurrentCultureIgnoreCase)))
+                {
+                    Insert(new Asset
+                    {
+                        Name = asset,
+                        UserId = userId
+                    });
+                }
+            }
+
+        }
 
         public double GetSummary(int assetId)
         {
