@@ -191,100 +191,67 @@
                 <TextBlock Text="{Binding Sum}"></TextBlock>
             </StackPanel>
 
-            <GridView  Grid.Row="1" ItemsSource="{Binding Transactions}" IsItemClickEnabled="False" HorizontalContentAlignment="Stretch"
-                  HorizontalAlignment="Stretch" Background="Aqua"
-                 Visibility="Collapsed"
-                  Padding="0,0,0,7">
-                <GridView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Top"></StackPanel>
-                    </ItemsPanelTemplate>
-                </GridView.ItemsPanel>
-                <GridView.ItemContainerStyle>
-                    <Style TargetType="GridViewItem">
-                        <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
-                    </Style>
-                </GridView.ItemContainerStyle>
-                <GridView.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel  HorizontalAlignment="Stretch"   Background="BurlyWood" Padding="5" Margin="5">
-                            <TextBlock Text="{Binding Cost}"></TextBlock>
-                            <TextBlock Text="{Binding Type, Converter={StaticResource OperationTypeToStringConverter}}"></TextBlock>
-                            <TextBlock Text="{Binding Product.Name}"></TextBlock>
-                            <TextBlock Text="{Binding Product.Parent.Name}"></TextBlock>
-                            <TextBlock Text="{Binding Currency.Code}"></TextBlock>
-                            <TextBlock Text="{Binding Date, Converter={StaticResource DateTimeToStringConverter}, ConverterParameter='dd/MM/yyyy'}"></TextBlock>
-                            <TextBlock Text="{Binding Comment}" TextTrimming="WordEllipsis"></TextBlock>
-                        </StackPanel>
-                    </DataTemplate>
-                </GridView.ItemTemplate>
-            </GridView>
+            <Pivot Grid.Row="1">
+                <PivotItem Header="">
+                    <GridView ItemsSource="{Binding  ElementName=Main, Path=DataContext.Transactions}" IsItemClickEnabled="False" HorizontalContentAlignment="Stretch"
+                    HorizontalAlignment="Stretch" Background="Aqua"
+                    Padding="0,0,0,7">
+                        <GridView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Top"></StackPanel>
+                            </ItemsPanelTemplate>
+                        </GridView.ItemsPanel>
+                        <GridView.ItemContainerStyle>
+                            <Style TargetType="GridViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                            </Style>
+                        </GridView.ItemContainerStyle>
+                        <GridView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel  HorizontalAlignment="Stretch"   Background="BurlyWood" Padding="5" Margin="5">
+                                    <TextBlock Text="{Binding Cost}"></TextBlock>
+                                    <TextBlock Text="{Binding Type, Converter={StaticResource OperationTypeToStringConverter}}"></TextBlock>
+                                    <TextBlock Text="{Binding Product.Name}"></TextBlock>
+                                    <TextBlock Text="{Binding Product.Parent.Name}"></TextBlock>
+                                    <TextBlock Text="{Binding Currency.Code}"></TextBlock>
+                                    <TextBlock Text="{Binding Date, Converter={StaticResource DateTimeToStringConverter}, ConverterParameter='dd/MM/yyyy'}"></TextBlock>
+                                    <TextBlock Text="{Binding Comment}" TextTrimming="WordEllipsis"></TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridView.ItemTemplate>
+                    </GridView>
 
-            <charting:Chart x:Name="PieChart" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource ChartStyle1}">
-                <charting:PieSeries Title="Использование IE" Margin="0" IndependentValuePath="Currency.Code" ItemsSource="{Binding Transactions }"
-                                              DependentValuePath="Cost" IsSelectionEnabled="True"/>
-                <!--<charting:Chart.LegendStyle>
-                    <Style TargetType="dataVisualization:Legend">
-                        <Setter Property="VerticalAlignment" Value="Stretch" />
-                        <Setter Property="Background" Value="#444" />
-                        <Setter  Property="ItemsPanel">
-                            <Setter.Value>
-                                <ItemsPanelTemplate>
-                                    <StackPanel Orientation="Vertical" />
-                                </ItemsPanelTemplate>
-                            </Setter.Value>
-                        </Setter>
-                        <Setter  Property="TitleStyle">
-                            <Setter.Value>
-                                <Style  TargetType="dataVisualization:Title">
-                                    <Setter  Property="Margin"  Value="0,5,0,10" />
-                                    <Setter  Property="FontWeight" Value="Bold" />
-                                    <Setter   Property="HorizontalAlignment"   Value="Center" />
-                                </Style>
-                            </Setter.Value>
-                        </Setter>
-                        <Setter  Property="ItemContainerStyle" xmlns:series="using:WinRTXamlToolkit.Controls.DataVisualization.Charting">
-                            <Setter.Value>
-                                <Style TargetType="series:LegendItem">
-                                    <Setter  Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="series:LegendItem">
-                                                <Border MinWidth="200" Margin="20,10"  CornerRadius="10"  VerticalAlignment="Stretch"  HorizontalAlignment="Stretch" Background="{Binding Background}">
-                                                    <dataVisualization:Title HorizontalAlignment="Center" VerticalAlignment="Center"      FontSize="24"  FontWeight="Bold"    Content="{TemplateBinding Content}" />
-                                                </Border>
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Style>
-                            </Setter.Value>
-                        </Setter>
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="dataVisualization:Legend">
-                                    <Border Background="{TemplateBinding Background}"  BorderBrush="{TemplateBinding BorderBrush}"    BorderThickness="{TemplateBinding BorderThickness}"  Padding="2">
-                                        <Grid>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition />
-                                            </Grid.RowDefinitions>
-                                            <dataVisualization:Title  Grid.Row="0"  x:Name="HeaderContent"  Content="{TemplateBinding Header}"  ContentTemplate="{TemplateBinding HeaderTemplate}" Style="{TemplateBinding TitleStyle}" />
-                                            <ScrollViewer  Grid.Row="1"      VerticalScrollBarVisibility="Auto"   BorderThickness="0"      Padding="0"    IsTabStop="False">
-                                                <ItemsPresenter     x:Name="Items"  Margin="10,0,10,10" />
-                                            </ScrollViewer>
-                                        </Grid>
-                                    </Border>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </charting:Chart.LegendStyle>-->
-            </charting:Chart>
+
+                </PivotItem>
+                <PivotItem Header="">
+
+                    <charting:Chart x:Name="PieChart" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource ChartStyle1}">
+                        <charting:PieSeries Title="Использование IE" Margin="0" IndependentValuePath="Name" ItemsSource="{Binding PieChartCollection }"
+                                              DependentValuePath="Count" IsSelectionEnabled="True"/>
+
+                    </charting:Chart>
+                </PivotItem>
+
+                <PivotItem>
+                    <charting:Chart x:Name="ColumnChart"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource ChartStyle1}">
+                        <charting:ColumnSeries Title="Причины потери памяти" Margin="0" IndependentValuePath="Name" ItemsSource="{Binding ColumnChartCollection}"
+                                                         DependentValuePath="Count" IsSelectionEnabled="True"/>
+                    </charting:Chart>
+                </PivotItem>
+                
+                <PivotItem>
+                    <charting:Chart x:Name="LineChart" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource ChartStyle1}">
+                        <charting:LineSeries Title="Восприятие скоротечности времени" Margin="0" IndependentValuePath="Name" ItemsSource="{Binding LineChartCollection}"
+                                                      DependentValuePath="Cost" IsSelectionEnabled="True"/>
+                    </charting:Chart>
+                </PivotItem>
+            </Pivot>
         </Grid>
-
 
         <StackPanel Grid.Row="1" HorizontalAlignment="Stretch" Margin="20" Visibility="{Binding Transactions, Converter={StaticResource CollectionVisibilityConverter}, ConverterParameter='!'}">
             <TextBlock Text="No results"></TextBlock>
         </StackPanel>
+
 
     </Grid>
 </Page>
