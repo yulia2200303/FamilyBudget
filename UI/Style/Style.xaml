@@ -40,6 +40,11 @@
         <Setter Property="VerticalAlignment" Value="Center"></Setter>
     </Style>
 
+    <Style TargetType="TextBlock" x:Key="TextBlock">
+        <Setter Property="Foreground" Value="#FFFFFF"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+    </Style>
+
     <Style TargetType="Border" x:Key="Border">
         <Setter Property="CornerRadius" Value="5"></Setter>
         <Setter Property="BorderThickness" Value="1"></Setter>

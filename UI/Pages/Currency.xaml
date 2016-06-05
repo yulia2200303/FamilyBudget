@@ -2,30 +2,59 @@
     x:Class="UI.Pages.Currency"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:UI"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid x:Name="Main" Style="{StaticResource Main}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Name="Refresh" Content="Refresh" Height="100" Command="{Binding RefreshCommand}" />
-            <TextBlock Name="TextBlockc" Text="{Binding UpdateDate}"></TextBlock>
+
+        <StackPanel Grid.Row="0" Style="{StaticResource StackHeader}">
+            <TextBlock Text="Currencies" Style="{StaticResource TextHeader}"/>
+            <Border Style="{StaticResource BorderHeader}"/>
         </StackPanel>
-        <ListView Name="CurrencyList" Grid.Row="1" ItemsSource="{Binding Currencies}">
+
+        <ListView Grid.Row="1" ItemsSource="{Binding Currencies}" HorizontalAlignment="Stretch">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Name}" />
-                        <TextBlock Text="{Binding Converter}" />
-                    </StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="{Binding Name}" Style="{StaticResource TextBlock}"/>
+                        <TextBlock Grid.Column="1" Text="{Binding Code}" Style="{StaticResource TextBlock}"/>
+                        <TextBlock Grid.Column="2" Text="{Binding Converter}" Style="{StaticResource TextBlock}"/>
+                    </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                </Style>
+            </ListView.ItemContainerStyle>
         </ListView>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Обновлено: "></TextBlock>
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding UpdateDate}"></TextBlock>
+            <Button Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Content="Refresh"  Command="{Binding RefreshCommand}" />
+
+        </Grid>
+
     </Grid>
 </Page>
