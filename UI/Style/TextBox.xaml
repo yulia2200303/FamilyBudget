@@ -21,7 +21,7 @@
     <Style TargetType="TextBox">
         <Setter Property="MinWidth" Value="{ThemeResource TextControlThemeMinWidth}" />
         <Setter Property="MinHeight" Value="{ThemeResource TextControlThemeMinHeight}" />
-        <Setter Property="Foreground" Value="{ThemeResource SystemControlForegroundBaseHighBrush}" />
+        <Setter Property="Foreground" Value="White" />
         <Setter Property="Background" Value="#252525" />
         <Setter Property="BorderBrush" Value="{StaticResource Bg}" />
         <Setter Property="SelectionHighlightColor" Value="{ThemeResource SystemControlHighlightAccentBrush}" />

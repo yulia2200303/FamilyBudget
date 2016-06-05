@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using DAL.Common;
 using DAL.Model;
-using Microsoft.ApplicationInsights.Extensibility.Implementation;
 using Prism.Commands;
 using Shared.Enum;
 using UI.Logic;
@@ -26,13 +21,10 @@ namespace UI.ViewModel
         {
             using (var uow = new UnitOfWork())
             {
-                // var user1 = uow.UserRepository.GetByQuery(u => u.Id == Logic.UserContext.Current.UserId, null, x => x.Assets);
-
                 User = uow.UserRepository.GetById(Logic.UserContext.Current.UserId);
+
                 var assetHepler = new AssetHelper(User.Id);
-
                 var assets = assetHepler.GetAssets();
-
                 Assets = new ObservableCollection<AssetViewModel>(assets);
             }
 
@@ -40,23 +32,7 @@ namespace UI.ViewModel
             AddAssetCommand = new DelegateCommand(OnAddAsset);
             NavigateToTransactionList = new DelegateCommand<AssetViewModel>(OnNavigateToTransactionList);
             NavigateToDeleteTransaction = new Microsoft.Practices.Prism.Commands.DelegateCommand<AssetViewModel>(OnNavigateToDeleteTransaction);
-            FilterChangeCommand = new DelegateCommand<object>(OnFilterChange);
         }
-
-
-        //private async void Test()
-        //{
-        //    var savePicker = new Windows.Storage.Pickers.FileSavePicker();
-        //    savePicker.SuggestedStartLocation =
-        //        Windows.Storage.Pickers.PickerLocationId.DocumentsLibrary;
-        //    // Dropdown of file types the user can save the file as
-        //    savePicker.FileTypeChoices.Add("Plain Text", new List<string>() { ".txt" });
-        //    // Default file name if the user does not type one in or select a file to replace
-        //    savePicker.SuggestedFileName = "New Document";
-        //    Windows.Storage.StorageFile file = await savePicker.PickSaveFileAsync();
-        //}
-
-        public ICommand AddTransactionCommand { get; }
 
         private User _user;
 
@@ -86,7 +62,6 @@ namespace UI.ViewModel
             set { SetProperty(ref _assetName, value); }
         }
 
-
         private bool _isFlyoutOpen;
         public bool IsFlyoutOpen
         {
@@ -94,27 +69,12 @@ namespace UI.ViewModel
             set { SetProperty(ref _isFlyoutOpen, value); }
         }
 
+        public ICommand AddTransactionCommand { get; }
 
         private void OnAddTransactionClick(AssetViewModel asset)
         {
-
             var rootFrame = Window.Current.Content as Frame;
             rootFrame.Navigate(typeof(AddTransaction), asset);
-        }
-
-        private string test;
-
-        public string Test
-        {
-            get { return test; }
-            set { SetProperty(ref test, value); }
-        }
-
-        public ICommand FilterChangeCommand { get; }
-
-        private void OnFilterChange(object o)
-        {
-            var x = 1;
         }
 
         public ICommand AddAssetCommand { get; }

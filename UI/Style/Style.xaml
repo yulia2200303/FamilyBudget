@@ -10,11 +10,14 @@
         <ResourceDictionary Source="ms-appx:///Style/Checkbox.xaml"></ResourceDictionary>
         <ResourceDictionary Source="ms-appx:///Style/ListView.xaml"></ResourceDictionary>
         <ResourceDictionary Source="ms-appx:///Style/GridViewItem.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="ms-appx:///Style/Combobox.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="ms-appx:///Style/CalendarDatePicker.xaml"></ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 
     <converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     <converter:StringToVisibilityConverter x:Key="StringToVisibilityConverter"/>
     <converter:ErrorToVisibilityConverter x:Key="ErrorToVisibilityConverter"/>
+    <converter:DateTimeToDateTimeOffsetConverter x:Key="DateTimeToDateTimeOffsetConverter"/>
 
 
     <LinearGradientBrush x:Key="LinearGradient" EndPoint="0.8,1" StartPoint="0.1,1">

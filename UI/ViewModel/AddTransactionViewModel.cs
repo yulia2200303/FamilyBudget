@@ -7,7 +7,6 @@ using System.Windows.Input;
 using Windows.UI.Popups;
 using DAL.Common;
 using DAL.Model;
-using Microsoft.ApplicationInsights.Extensibility.Implementation;
 using Prism.Commands;
 using Shared.Enum;
 using UI.ViewModel.Common;
@@ -37,10 +36,8 @@ namespace UI.ViewModel
                 var categories = uow.CategoryRepository.GetCategories();
                 Categories = new ObservableCollection<Category>(categories);
             }
-            //SelectedDate =DateTime.Now;
 
             AddCommand = new DelegateCommand(OnAddCommand);
-
             DateChangedCommand = new DelegateCommand<object>(OnDateChangedCommand);
         }
 
@@ -223,7 +220,6 @@ namespace UI.ViewModel
     public class Operation
     {
         public int Value { get; set; }
-
         public string Name { get; set; }
     }
 }
