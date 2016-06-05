@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Windows.Input;
-using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using DAL.Common;
@@ -22,6 +21,8 @@ namespace UI.ViewModel
 {
     class AccountViewModel : BaseViewModel
     {
+        private const string DefaultAssetName = "My Asset";
+
         public AccountViewModel()
         {
             using (var uow = new UnitOfWork())
@@ -35,21 +36,21 @@ namespace UI.ViewModel
             RemoveCommand = new DelegateCommand<UserModel>(OnRemoveCommand);
             EnteredPasswordCommand = new DelegateCommand<string>(OnEnteredPasswordChange);
 
-            timer = new DispatcherTimer { Interval = new TimeSpan(0, 0, 0, 1, 500) }; 
-            timer.Tick += TimerOnTick;
+            _timer = new DispatcherTimer { Interval = new TimeSpan(0, 0, 0, 1, 500) };
+            _timer.Tick += TimerOnTick;
         }
 
         private void TimerOnTick(object sender, object o)
         {
-            timer.Stop();
+            _timer.Stop();
 
-            if(SelectedUser == null) return;
+            if (SelectedUser == null) return;
 
             if (SaltedHash.Verify(SelectedUser.Salt, SelectedUser.Hash, SelectedUser.EnteredPassword))
             {
                 UserContext.Current.Authenticate(SelectedUser.Name, SelectedUser.EnteredPassword, SelectedUser.Id, null);
                 var rootFrame = Window.Current.Content as Frame;
-                rootFrame.Navigate(typeof (MyAssets));
+                rootFrame.Navigate(typeof(MyAssets));
             }
         }
 
@@ -71,7 +72,6 @@ namespace UI.ViewModel
             get { return _login; }
             set { SetProperty(ref _login, value); }
         }
-
 
         private string _password;
 
@@ -105,7 +105,7 @@ namespace UI.ViewModel
         {
             if (!ValidateProperties()) return;
 
-            var user = new User()
+            var user = new User
             {
                 Name = Login,
             };
@@ -118,10 +118,9 @@ namespace UI.ViewModel
                 user.Salt = saltedHash.Salt;
             }
 
-            var asset = new Asset()
+            var asset = new Asset
             {
-                Name = "My asset",
-                Type = 0,
+                Name = DefaultAssetName,
                 User = user
             };
 
@@ -135,7 +134,6 @@ namespace UI.ViewModel
 
             Users.Add(UserModel.Convert(user));
             ClearCredentials();
-            Errors.SetAllErrors(new Dictionary<string, ReadOnlyCollection<string>>());
         }
 
         public ICommand RemoveCommand { get; }
@@ -189,25 +187,21 @@ namespace UI.ViewModel
             }
 
             selecredUser.IsPanelShow = true;
-            //Users = new ObservableCollection<UserModel>(Users);
-            //var s = Users.FirstOrDefault(u => u.Id == selecredUser.Id);
-            //s.IsPanelShow = true;
-            //s.Is
         }
 
+
+        readonly DispatcherTimer _timer;
         public ICommand EnteredPasswordCommand { get; }
 
         private void OnEnteredPasswordChange(string password)
         {
-            if (timer.IsEnabled)
+            if (_timer.IsEnabled)
             {
-                timer.Stop();
+                _timer.Stop();
             }
 
-            timer.Start();
+            _timer.Start();
         }
-
-        DispatcherTimer timer;
 
         private void ClearCredentials()
         {
@@ -215,6 +209,7 @@ namespace UI.ViewModel
             Password = string.Empty;
             IsPasswordSet = false;
             SelectedUser = null;
+            Errors.SetAllErrors(new Dictionary<string, ReadOnlyCollection<string>>());
         }
     }
 }

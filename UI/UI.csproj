@@ -119,7 +119,9 @@
     <Compile Include="Model\PieChart.cs" />
     <Compile Include="MVVM\Converter\CollectionVisibilityConverter.cs" />
     <Compile Include="MVVM\Converter\DateTimeToStringConverter.cs" />
+    <Compile Include="MVVM\Converter\ErrorToVisibilityConverter.cs" />
     <Compile Include="MVVM\Converter\OperationTypeToStringConverter.cs" />
+    <Compile Include="MVVM\Converter\StringToVisibilityConverter.cs" />
     <Compile Include="MVVM\Converter\ToUpperValueConverter.cs" />
     <Compile Include="Pages\DeleteTransactions.xaml.cs">
       <DependentUpon>DeleteTransactions.xaml</DependentUpon>
@@ -196,6 +198,7 @@
     <None Include="UI_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\background.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -217,6 +220,31 @@
     <Page Include="Pages\Settings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Style\Checkbox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Style\ListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Style\PasswordBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Style\Style.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Style\TextBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
     <Page Include="UserControl\CustomCombobox.xaml">
       <SubType>Designer</SubType>

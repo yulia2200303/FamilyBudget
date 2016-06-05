@@ -24,11 +24,6 @@ namespace UI.Pages
             DataContext = _viewModel;
         }
 
-        private void click_b(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(MyAssets));
-        }
-
         private void UIElement_OnRightTapped(object sender, RightTappedRoutedEventArgs e)
         {
             if (e.PointerDeviceType != PointerDeviceType.Mouse) return;

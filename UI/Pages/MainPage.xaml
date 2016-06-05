@@ -4,54 +4,125 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:converter="using:UI.MVVM.Converter"
     xmlns:commands="using:UI.MVVM.Command"
     mc:Ignorable="d">
-    
-    <Page.Resources>
-        <converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-    </Page.Resources>
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" x:Name="Main">
-        <StackPanel>
+    <Grid x:Name="Main" Style="{StaticResource Main}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
 
-       
-            <ListView x:Name="Users" ItemsSource="{Binding Users}"  commands:ListViewItemClickCommand.Command="{Binding LoginCommand}" RightTapped="UIElement_OnRightTapped" Holding="UIElement_OnHolding">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Background="Red" Margin="10" Orientation="Vertical">
-                            <TextBlock Text="{Binding Name}"></TextBlock>
+
+        <StackPanel Grid.Row="0" Style="{StaticResource StackHeader}">
+            <TextBlock Text="Family Budget" Style="{StaticResource TextHeader}"/>
+            <Border Style="{StaticResource BorderHeader}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1">
+            <Border Style="{StaticResource BorderContent}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Login"></TextBlock>
+                    <TextBox Grid.Row="0" Grid.Column="1"  Text="{Binding Login, Mode=TwoWay}" PlaceholderText="Login" BorderThickness="0,0,0,0" ></TextBox>
+
+
+                    <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Errors[Login][0]}" Visibility="{Binding Errors[Login], Converter={StaticResource ErrorToVisibilityConverter}}" Style="{StaticResource TextError}" />
+                    <TextBlock Grid.Row="2" Grid.Column="0" FlowDirection="LeftToRight" Text="Password" />
+                    <CheckBox Grid.Row="2" Grid.Column="1" IsChecked="{Binding IsPasswordSet, Mode=TwoWay}"></CheckBox>
+
+                    <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Visibility="{Binding IsPasswordSet, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <PasswordBox Grid.Row="0" Grid.Column="1" Password="{Binding Password, Mode=TwoWay}" PlaceholderText="Password"></PasswordBox>
+                        <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Errors[Password][0]}" Visibility="{Binding Errors[Password], Converter={StaticResource ErrorToVisibilityConverter}}" Style="{StaticResource TextError}" />
+
+                    </Grid>
+
+                    <Button  Grid.Row="4" Grid.Column="1" x:Uid="AddBtn" Content="Add" HorizontalAlignment="Right" Command="{Binding AddUserCommand}" ></Button>
+
+                </Grid>
+
+            </Border>
+
+        </StackPanel>
+
+        <ListView Grid.Row="2" x:Name="Users" ItemsSource="{Binding Users}"  commands:ListViewItemClickCommand.Command="{Binding LoginCommand}" RightTapped="UIElement_OnRightTapped" Holding="UIElement_OnHolding">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border Style="{StaticResource BorderContent}">
+                        <StackPanel  Orientation="Vertical">
+                            <TextBlock Text="{Binding Name}" TextAlignment="Center"></TextBlock>
                             <StackPanel Visibility="{Binding IsPanelShow, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                <PasswordBox Background="Chartreuse" Password="{Binding EnteredPassword, Mode=TwoWay}" commands:PasswordChangeTextCommnand.Command="{Binding ElementName=Main, Path=DataContext.EnteredPasswordCommand}"></PasswordBox>
+                                <PasswordBox  Password="{Binding EnteredPassword, Mode=TwoWay}" commands:PasswordChangeTextCommnand.Command="{Binding ElementName=Main, Path=DataContext.EnteredPasswordCommand}"></PasswordBox>
                             </StackPanel>
                         </StackPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-                <ListView.Resources>
-                    <MenuFlyout x:Name="UserMwnuLayout">
-                        <MenuFlyout.Items>
-                            <MenuFlyoutItem x:Name="Remove" Text="Remove"  Command="{Binding RemoveCommand}"  />
-                        </MenuFlyout.Items>
-                    </MenuFlyout>
-                </ListView.Resources>
-            </ListView>
-            <StackPanel>
-                <TextBox Background="Aquamarine" Text="{Binding Login, Mode=TwoWay}"></TextBox>
-                <TextBlock Text="{Binding Errors[Login][0]}"
-                       Foreground="Red"
-                       HorizontalAlignment="Right" />
-                <CheckBox IsChecked="{Binding IsPasswordSet, Mode=TwoWay}" >
-                    <TextBlock FlowDirection="LeftToRight" Text="Set Password" />
-                </CheckBox>
-                <StackPanel Visibility="{Binding IsPasswordSet, Converter={StaticResource BooleanToVisibilityConverter}}">
-                    <PasswordBox Background="BlueViolet" Password="{Binding Password, Mode=TwoWay}"></PasswordBox>
-                    <TextBlock Text="{Binding Errors[Password][0]}"
-                       Foreground="Red"
-                       HorizontalAlignment="Right" />
-                  
-                </StackPanel>
-                <Button x:Uid="AddBtn" Content="Add" HorizontalAlignment="Center" Command="{Binding AddUserCommand}" Height="74" Margin="114,0,85,0" Width="161"></Button>
-            </StackPanel>
-        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.Resources>
+                <MenuFlyout x:Name="UserMwnuLayout">
+                    <MenuFlyout.Items>
+                        <MenuFlyoutItem x:Name="Remove" Text="Remove"  Command="{Binding RemoveCommand}"  />
+                    </MenuFlyout.Items>
+                </MenuFlyout>
+            </ListView.Resources>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListViewItem">
+                                <Grid>
+                                    <VisualStateManager.VisualStateGroups>
+                                        <VisualStateGroup x:Name="CommonStates">
+                                            <VisualState x:Name="Normal"/>
+                                        </VisualStateGroup>
+                                        <VisualStateGroup x:Name="SelectionStates">
+                                            <VisualState x:Name="Unselected">
+                                                <Storyboard>
+                                                    <ColorAnimation Duration="0" Storyboard.TargetName="myback" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="Transparent"/>
+                                                </Storyboard>
+                                            </VisualState>
+                                            <VisualState x:Name="SelectedUnfocused">
+                                                <Storyboard>
+                                                    <ColorAnimation Duration="0" Storyboard.TargetName="myback" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="Red"/>
+                                                </Storyboard>
+                                            </VisualState>
+                                        </VisualStateGroup>
+                                    </VisualStateManager.VisualStateGroups>
+                                    <Border x:Name="myback" Background="Transparent">
+                                        <ContentPresenter Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}"/>
+                                    </Border>
+                                </Grid>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListView.ItemContainerStyle>
+        </ListView>
+
+
+
+
     </Grid>
 </Page>

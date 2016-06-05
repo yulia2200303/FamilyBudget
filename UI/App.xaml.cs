@@ -28,13 +28,14 @@ namespace UI
         /// </summary>
         public App()
         {
+            ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.FullScreen;
             WindowsAppInitializer.InitializeAsync(
                 WindowsCollectors.Metadata |
                 WindowsCollectors.Session);
             InitializeComponent();
             Suspending += OnSuspending;
 
-          
+         
             // var x1 = ApplicationData.Current.LocalFolder;
             try
             {
