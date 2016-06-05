@@ -2,77 +2,80 @@
     x:Class="UI.Pages.MyAssets"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:UI"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:helpers="using:UI.MVVM.Helpers"
     mc:Ignorable="d">
     <Page.Resources>
 
+        <DataTemplate x:Key="AssetTemplate">
+            <Grid  HorizontalAlignment="Stretch" Tapped="UIElement_OnTapped" Style="{StaticResource GridDataTmpl}">
+                <StackPanel x:Name="StackPanelWrapper" HorizontalAlignment="Stretch">
+                    <StackPanel.Resources>
+                        <Storyboard x:Name="Hide">
+                            <DoubleAnimation To="0"  Duration="0:0:0.5" Storyboard.TargetProperty="(FrameworkElement.Height)" EnableDependentAnimation="True"  Storyboard.TargetName="StackPanelBtn"/>
+                        </Storyboard>
+                        <Storyboard x:Name="Show">
+                            <DoubleAnimation To="150"  Duration="0:0:0.5" Storyboard.TargetProperty="(FrameworkElement.Height)" EnableDependentAnimation="True"  Storyboard.TargetName="StackPanelBtn"/>
+                        </Storyboard>
+                    </StackPanel.Resources>
+                    <Grid Padding="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="100"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="{Binding Name}" Style="{StaticResource TextAssetName}"/>
+                        <TextBox IsReadOnly="True" Grid.Column="1" Text="{Binding Cost}" FontSize="18" HorizontalAlignment="Stretch"></TextBox>
+                    </Grid>
+
+                    <StackPanel x:Name="StackPanelBtn" Height="0" Margin="0" Padding="30, 0">
+                        <Button Content="Add a transaction" HorizontalAlignment="Stretch" Command="{Binding DataContext.AddTransactionCommand, ElementName=Main}" CommandParameter="{Binding}"/>
+                        <Button Content="List of transaction" HorizontalAlignment="Stretch" Command="{Binding DataContext.NavigateToTransactionList, ElementName=Main}" CommandParameter="{Binding}"/>
+                        <Button Content="Delete a transaction" HorizontalAlignment="Stretch" Command="{Binding DataContext.NavigateToDeleteTransaction, ElementName=Main}" CommandParameter="{Binding}"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+
     </Page.Resources>
-    <Grid x:Name="Main" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" >
+
+    <Grid x:Name="Main" Style="{StaticResource Main}">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <GridView  ItemsSource="{Binding Assets}" IsItemClickEnabled="False" HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch" Background="Aqua"  Padding="0,0,0,7">
+        <StackPanel Grid.Row="0" Style="{StaticResource StackHeader}">
+            <TextBlock Text="Assets" Style="{StaticResource TextHeader}"/>
+            <Border Style="{StaticResource BorderHeader}"/>
+        </StackPanel>
+
+        <GridView Grid.Row="1" ItemsSource="{Binding Assets}" IsItemClickEnabled="False" ItemTemplate="{StaticResource AssetTemplate}">
             <GridView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Top"></StackPanel>
                 </ItemsPanelTemplate>
             </GridView.ItemsPanel>
             <GridView.ItemContainerStyle>
-                <Style TargetType="GridViewItem">
+                <Style TargetType="GridViewItem" BasedOn="{StaticResource GridViewItemExpanded}">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
                 </Style>
             </GridView.ItemContainerStyle>
-            <GridView.ItemTemplate>
-                <DataTemplate>
-                    <Grid  HorizontalAlignment="Stretch"  Tapped="UIElement_OnTapped" Background="BurlyWood" Padding="5" Margin="5">
-                        <StackPanel Margin="5" x:Name="StackPanelWrapper" HorizontalAlignment="Stretch">
-                            <StackPanel.Resources>
-                                <Storyboard x:Name="Hide">
-                                    <DoubleAnimation To="0"  Duration="0:0:0.5" Storyboard.TargetProperty="(FrameworkElement.Height)" EnableDependentAnimation="True"  Storyboard.TargetName="StackPanelBtn"></DoubleAnimation>
-                                </Storyboard>
-                                <Storyboard x:Name="Show">
-                                    <DoubleAnimation To="150"  Duration="0:0:0.5" Storyboard.TargetProperty="(FrameworkElement.Height)" EnableDependentAnimation="True"  Storyboard.TargetName="StackPanelBtn"></DoubleAnimation>
-                                </Storyboard>
-                            </StackPanel.Resources>
-                            <TextBlock FontSize="18" Text="{Binding Name}" HorizontalAlignment="Right"></TextBlock>
-                            <TextBlock FontSize="18" Text="{Binding Cost}" HorizontalAlignment="Right" Foreground="Blue"></TextBlock>
-
-                            <StackPanel x:Name="StackPanelBtn" Background="Pink" Height="0" Margin="10">
-                                <Button Content="Add a transaction" Command="{Binding ElementName=Main, Path=DataContext.AddTransactionCommand}" CommandParameter="{Binding}"></Button>
-                                <Button Content="List of transaction" Command="{Binding ElementName=Main, Path=DataContext.NavigateToTransactionList}" CommandParameter="{Binding}"></Button>
-                                <Button Content="Delete a transaction" Command="{Binding ElementName=Main, Path=DataContext.NavigateToDeleteTransaction}" CommandParameter="{Binding}"></Button>
-                            </StackPanel>
-                        </StackPanel>
-                    </Grid>
-                </DataTemplate>
-            </GridView.ItemTemplate>
         </GridView>
-
     </Grid>
 
     <Page.BottomAppBar>
-        <AppBar x:Name="DD" IsOpen="False"  IsSticky="True" ClosedDisplayMode="Minimal">
+        <AppBar>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
-                <AppBarButton Name="Show" Icon="Accept" Label="Currency" Click="Navigate_ToCurrency" />
-                <AppBarButton Name="Button" Icon="Accept" Label="Settings" Click="Navigate_ToSettings"></AppBarButton>
-                <AppBarButton Name="AddAssetBtn" Icon="Accept" Label="Add Asset">
+                <AppBarButton Name="Show" Icon="World" Label="Currency" Click="Navigate_ToCurrency" />
+                <AppBarButton Name="Button" Icon="Setting" Label="Settings" Click="Navigate_ToSettings"/>
+                <AppBarButton Name="AddAssetBtn" Icon="Edit" Label="Add Asset">
                     <AppBarButton.Flyout>
-                        <Flyout Placement="Full"  helpers:FlyoutHelpers.Parent="{Binding ElementName=AddAssetBtn}" helpers:FlyoutHelpers.IsOpen="{Binding IsFlyoutOpen, Mode=TwoWay}">
-                            <Flyout.FlyoutPresenterStyle >
-                                <Style TargetType="FlyoutPresenter" >
-                                    <Setter Property="Padding" Value="0"/>
-                                    <!--<Setter Property="Background" Value="Transparent"></Setter>-->
-                                    <Setter Property="BorderThickness" Value="0"></Setter>
-                                </Style>
-                            </Flyout.FlyoutPresenterStyle >
-                            <Grid Background="Aqua" Margin="50">
+                        <Flyout Placement="Full" helpers:FlyoutHelpers.Parent="{Binding ElementName=AddAssetBtn}" helpers:FlyoutHelpers.IsOpen="{Binding IsFlyoutOpen, Mode=TwoWay}" FlyoutPresenterStyle="{StaticResource PopupFlyout}">
+                            <Grid Margin="30">
                                 <StackPanel>
                                     <TextBox PlaceholderText="Name" Text="{Binding AssetName, Mode=TwoWay}"></TextBox>
-                                    <TextBlock Text="{Binding Errors[AssetName][0]}" Foreground="Red"  HorizontalAlignment="Right" />
+                                    <TextBlock Text="{Binding Errors[AssetName][0]}" Visibility="{Binding Errors[AssetName], Converter={StaticResource ErrorToVisibilityConverter}}" Style="{StaticResource TextError}" />
                                     <Button Content="Add Asset" Command="{Binding AddAssetCommand}"></Button>
                                 </StackPanel>
                             </Grid>

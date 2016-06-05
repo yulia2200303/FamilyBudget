@@ -1,8 +1,4 @@
-﻿using System;
-using System.Linq;
-using Windows.UI;
-using Windows.UI.ViewManagement;
-using Windows.UI.Xaml;
+﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
@@ -23,29 +19,7 @@ namespace UI.Pages
             InitializeComponent();
             var model = new MyAssetsViewModel();
             DataContext = model;
-
-            var frame = Window.Current.Content as Frame;
-            var page = frame.Content as Page;
-            //Popup.Height = page.ActualHeight;
-            //Popup.Width = page.ActualWidth;
-
-            //var view = ApplicationView.GetForCurrentView();
-            //if (view.IsFullScreenMode)
-            //{
-            //    view.ExitFullScreenMode();
-            //    ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.Auto;
-            //    // The SizeChanged event will be raised when the exit from full-screen mode is complete.
-            //}
-            //else
-            //{
-            //    if (view.TryEnterFullScreenMode())
-            //    {
-            //        ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.FullScreen;
-            //        // The SizeChanged event will be raised when the entry to full-screen mode is complete.
-            //    }
-            //}
         }
-
 
         private void Navigate_ToCurrency(object sender, RoutedEventArgs e)
         {
@@ -59,17 +33,14 @@ namespace UI.Pages
             {
                 DependencyObject child = VisualTreeHelper.GetChild(control, i);
                 FrameworkElement fe = child as FrameworkElement;
-                // Not a framework element or is null
                 if (fe == null) return null;
 
                 if (child is T && fe.Name == ctrlName)
                 {
-                    // Found the control so return
                     return child;
                 }
                 else
                 {
-                    // Not found it - search children
                     DependencyObject nextLevel = FindChildControl<T>(child, ctrlName);
                     if (nextLevel != null)
                         return nextLevel;
@@ -77,24 +48,6 @@ namespace UI.Pages
             }
             return null;
         }
-
-        public static T FindParent<T>(DependencyObject element) where T : DependencyObject
-        {
-            while (element != null)
-            {
-                DependencyObject parent = VisualTreeHelper.GetParent(element);
-                T candidate = parent as T;
-                if (candidate != null)
-                {
-                    return candidate;
-                }
-
-                element = parent;
-            }
-
-            return default(T);
-        }
-
 
         private void UIElement_OnTapped(object sender, TappedRoutedEventArgs e)
         {

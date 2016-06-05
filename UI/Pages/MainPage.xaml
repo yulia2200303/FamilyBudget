@@ -40,7 +40,7 @@
 
 
                     <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Errors[Login][0]}" Visibility="{Binding Errors[Login], Converter={StaticResource ErrorToVisibilityConverter}}" Style="{StaticResource TextError}" />
-                    <TextBlock Grid.Row="2" Grid.Column="0" FlowDirection="LeftToRight" Text="Password" />
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Password" />
                     <CheckBox Grid.Row="2" Grid.Column="1" IsChecked="{Binding IsPasswordSet, Mode=TwoWay}"></CheckBox>
 
                     <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Visibility="{Binding IsPasswordSet, Converter={StaticResource BooleanToVisibilityConverter}}">
