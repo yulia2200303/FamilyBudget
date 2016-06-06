@@ -119,6 +119,7 @@
     <Compile Include="Model\PieChart.cs" />
     <Compile Include="MVVM\Converter\CollectionVisibilityConverter.cs" />
     <Compile Include="MVVM\Converter\DateTimeToStringConverter.cs" />
+    <Compile Include="MVVM\Converter\DoubleToDecimalConverter.cs" />
     <Compile Include="MVVM\Converter\ErrorToVisibilityConverter.cs" />
     <Compile Include="MVVM\Converter\OperationTypeToStringConverter.cs" />
     <Compile Include="MVVM\Converter\StringToVisibilityConverter.cs" />
@@ -247,6 +248,11 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
     <Page Include="Style\PasswordBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Style\Pivot.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

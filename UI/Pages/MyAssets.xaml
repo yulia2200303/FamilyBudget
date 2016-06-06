@@ -50,7 +50,7 @@
             <Border Style="{StaticResource BorderHeader}"/>
         </StackPanel>
 
-        <GridView Grid.Row="1" ItemsSource="{Binding Assets}" IsItemClickEnabled="False" ItemTemplate="{StaticResource AssetTemplate}">
+        <GridView Grid.Row="1" ItemsSource="{Binding Assets}" IsItemClickEnabled="False" ItemTemplate="{StaticResource AssetTemplate}" Margin="0,5, 0, 0">
             <GridView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Top"></StackPanel>

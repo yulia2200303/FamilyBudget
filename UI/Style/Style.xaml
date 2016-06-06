@@ -12,12 +12,17 @@
         <ResourceDictionary Source="ms-appx:///Style/GridViewItem.xaml"></ResourceDictionary>
         <ResourceDictionary Source="ms-appx:///Style/Combobox.xaml"></ResourceDictionary>
         <ResourceDictionary Source="ms-appx:///Style/CalendarDatePicker.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="ms-appx:///Style/Pivot.xaml"></ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 
     <converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     <converter:StringToVisibilityConverter x:Key="StringToVisibilityConverter"/>
     <converter:ErrorToVisibilityConverter x:Key="ErrorToVisibilityConverter"/>
     <converter:DateTimeToDateTimeOffsetConverter x:Key="DateTimeToDateTimeOffsetConverter"/>
+    <converter:DateTimeToStringConverter x:Name="DateTimeToStringConverter"/>
+    <converter:OperationTypeToStringConverter x:Name="OperationTypeToStringConverter"/>
+    <converter:CollectionVisibilityConverter x:Name="CollectionVisibilityConverter" />
+    <converter:DoubleToDecimalConverter x:Name="DoubleToDecimalConverter"/>
 
 
     <LinearGradientBrush x:Key="LinearGradient" EndPoint="0.8,1" StartPoint="0.1,1">
@@ -53,6 +58,7 @@
     </Style>
 
     <Style TargetType="StackPanel" x:Key="StackHeader">
+        <Setter Property="Margin" Value="0, 0, 0, 10"></Setter>
     </Style>
 
     <Style TargetType="Border" x:Key="BorderHeader" BasedOn="{StaticResource Border}">
@@ -108,7 +114,7 @@
     <Style TargetType="Grid" x:Key="GridDataTmpl">
         <Setter Property="Background" Value="#111111"></Setter>
         <Setter Property="Padding" Value="5"></Setter>
-        <Setter Property="Margin" Value="0, 10"></Setter>
+        <Setter Property="Margin" Value="0, 0, 0,5"></Setter>
         <Setter Property="BorderBrush" Value="{StaticResource LinearGradient}"></Setter>
         <Setter Property="CornerRadius" Value="5"></Setter>
         <Setter Property="BorderThickness" Value="1"></Setter>

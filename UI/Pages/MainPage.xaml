@@ -71,7 +71,7 @@
                 <DataTemplate>
                     <Border Style="{StaticResource BorderContent}">
                         <StackPanel  Orientation="Vertical">
-                            <TextBlock Text="{Binding Name}" TextAlignment="Center"></TextBlock>
+                            <TextBlock Text="{Binding Name}" TextAlignment="Center" Style="{StaticResource TextBlock}"></TextBlock>
                             <StackPanel Visibility="{Binding IsPanelShow, Converter={StaticResource BooleanToVisibilityConverter}}">
                                 <PasswordBox  Password="{Binding EnteredPassword, Mode=TwoWay}" commands:PasswordChangeTextCommnand.Command="{Binding ElementName=Main, Path=DataContext.EnteredPasswordCommand}"></PasswordBox>
                             </StackPanel>

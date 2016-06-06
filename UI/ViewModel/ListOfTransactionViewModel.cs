@@ -18,7 +18,6 @@ namespace UI.ViewModel
 {
     class ListOfTransactionViewModel : BaseViewModel
     {
-
         public ListOfTransactionViewModel(int assetId)
         {
             FilterChangeCommand = new DelegateCommand<object>(OnFilterChange);
@@ -28,42 +27,12 @@ namespace UI.ViewModel
             {
                 _sourceTransactions = uow.TransactionRepository.GetByAssetId(assetId);
                 Transactions = new ObservableCollection<Transaction>(_sourceTransactions.Filter(Filters.Select(f => f.SelectedItem)));
-                PieChartCollection = new ObservableCollection<PieChartData>(_sourceTransactions.GroupBy(t => t.Type).Select(g => new PieChartData { Name = EnumHelper<OperationType>.GetDisplayValue((OperationType)(g.Key)), Count = g.Count() }));
-                ColumnChartCollection = new ObservableCollection<ColumnChartData>(_sourceTransactions.GroupBy(t => t.Product.Parent.Name).Select(g => new ColumnChartData() { Name = g.Key, Count = g.Count() }));
+                Sum = GetBalanseString(Transactions);
 
-
-                var tx = _sourceTransactions.OrderBy(t => t.Date);
-                var res = new List<LineChartData>();
-                if (tx.Any())
-                {
-                    var start = tx.First().Date;
-                    var endDate = DateTime.Now;
-                    int months = (endDate.Year - start.Year) * 12 + endDate.Month - start.Month;
-                    for (var i = months; i >= 0; i--)
-                    {
-                        var i1 = i;
-                        var firstDayOfMonth = new DateTime(endDate.AddMonths(-i1).Year, endDate.AddMonths(-i1).Month, 1);
-                        var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
-                        var el =
-                            tx.Where(
-                                e => e.Date.Date >= firstDayOfMonth && e.Date.Date <= lastDayOfMonth);
-
-                        var cost = GetBalanceD(el);
-
-
-                        res.Add(new LineChartData()
-                        {
-                            Name = firstDayOfMonth.ToString("MM.yyyy"),
-                            Cost = (double) cost
-                        });
-                    }
-                }
-
-
-                LineChartCollection = new ObservableCollection<LineChartData>(res);
+                SetPieChartData(_sourceTransactions);
+                SetColumnChartData(_sourceTransactions);
+                SetLineChartData(_sourceTransactions);
             }
-
-            Sum = GetBalance();
         }
 
         private readonly List<Transaction> _sourceTransactions;
@@ -79,45 +48,63 @@ namespace UI.ViewModel
             set { SetProperty(ref _sum, value); }
         }
 
-        private string GetBalance()
+        private void SetPieChartData(IEnumerable<Transaction> transactions)
         {
-            var filter = Filters[IndexOfCurrencyFilter].SelectedItem;
-
-            string code = CurrencyCode.BelarussianRub;
-            if (filter.Value != null)
-            {
-                code = new UnitOfWork().CurrencyRepository.GetById((int)filter.Value).Code;
-            }
-
-            var currencyConverter = new CurrencyConverter();
-
-            decimal sum = 0;
-            foreach (var transaction in Transactions)
-            {
-                if (transaction.Type == (int)OperationType.Debit)
+            PieChartCollection = new ObservableCollection<PieChartData>(transactions.GroupBy(t => t.Type)
+                .Select(g => new PieChartData
                 {
-                    sum -= (decimal)(transaction.Cost * currencyConverter.Convert(transaction.Currency.Code, code));
-                }
-                else
-                {
-                    sum += (decimal)(transaction.Cost * currencyConverter.Convert(transaction.Currency.Code, code));
-                }
-            }
-            return $"{Math.Round(sum, 2)} {code}";
+                    Name = EnumHelper<OperationType>.GetDisplayValue((OperationType)(g.Key)),
+                    Count = g.Count()
+                }));
         }
 
-        private decimal GetBalanceD(IEnumerable<Transaction> transactions)
+        private void SetColumnChartData(IEnumerable<Transaction> transactions)
         {
-            var filter = Filters[IndexOfCurrencyFilter].SelectedItem;
+            ColumnChartCollection = new ObservableCollection<ColumnChartData>(transactions.GroupBy(t => t.Product.Parent.Name)
+                .Select(g => new ColumnChartData()
+                {
+                    Name = g.Key,
+                    Count = g.Count()
+                }));
 
-            string code = CurrencyCode.BelarussianRub;
-            if (filter.Value != null)
+        }
+
+        private void SetLineChartData(IEnumerable<Transaction> transactions)
+        {
+            var listOfDate = transactions.OrderBy(t => t.Date);
+            var result = new List<LineChartData>();
+
+            if (listOfDate.Any())
             {
-                code = new UnitOfWork().CurrencyRepository.GetById((int)filter.Value).Code;
+                var start = listOfDate.First().Date;
+                var endDate = DateTime.Now;
+                int months = (endDate.Year - start.Year) * 12 + endDate.Month - start.Month;
+                for (var i = months; i >= 0; i--)
+                {
+                    var local = i;
+                    var firstDayOfMonth = new DateTime(endDate.AddMonths(-local).Year, endDate.AddMonths(-local).Month, 1);
+                    var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
+                    var el =
+                        listOfDate.Where(
+                            e => e.Date.Date >= firstDayOfMonth && e.Date.Date <= lastDayOfMonth);
+
+                    var cost = GetBalance(el);
+
+                    result.Add(new LineChartData()
+                    {
+                        Name = firstDayOfMonth.ToString("MM.yyyy"),
+                        Cost = (double)cost
+                    });
+                }
             }
 
-            var currencyConverter = new CurrencyConverter();
+            LineChartCollection = new ObservableCollection<LineChartData>(result);
+        }
 
+        private decimal GetBalance(IEnumerable<Transaction> transactions)
+        {
+            var currencyConverter = new CurrencyConverter();
+            string code = GetCurrencyCode();
             decimal sum = 0;
             foreach (var transaction in transactions)
             {
@@ -131,6 +118,26 @@ namespace UI.ViewModel
                 }
             }
             return sum;
+        }
+
+        private string GetCurrencyCode()
+        {
+
+            var filter = Filters[IndexOfCurrencyFilter].SelectedItem;
+
+            string code = CurrencyCode.BelarussianRub;
+            if (filter.Value != null)
+            {
+                code = new UnitOfWork().CurrencyRepository.GetById((int)filter.Value).Code;
+            }
+            return code;
+        }
+
+        private string GetBalanseString(IEnumerable<Transaction> transactions)
+        {
+            var sum = GetBalance(transactions);
+            string code = GetCurrencyCode();
+            return $"{Math.Round(sum, 2)} {code}";
         }
 
         private ObservableCollection<Filter> _filters;
@@ -193,41 +200,11 @@ namespace UI.ViewModel
 
                 var filteredSource = _sourceTransactions.Filter(Filters.Select(f => f.SelectedItem));
                 Transactions = new ObservableCollection<Transaction>(filteredSource);
-                PieChartCollection = new ObservableCollection<PieChartData>(filteredSource.GroupBy(t => t.Type).Select(g => new PieChartData() { Name = EnumHelper<OperationType>.GetDisplayValue((OperationType)(g.Key)), Count = g.Count() }));
+                Sum = GetBalanseString(Transactions);
 
-                ColumnChartCollection = new ObservableCollection<ColumnChartData>(filteredSource.GroupBy(t => t.Product.Parent.Name).Select(g => new ColumnChartData { Name = g.Key, Count = g.Count() }));
-
-                var tx = filteredSource.OrderBy(t => t.Date);
-                var res = new List<LineChartData>();
-                if (tx.Any())
-                {
-                    var start = tx.First().Date;
-                    var endDate = DateTime.Now;
-                    int months = (endDate.Year - start.Year) * 12 + endDate.Month - start.Month;
-                    for (var i = months; i >= 0; i--)
-                    {
-                        var i1 = i;
-                        var firstDayOfMonth = new DateTime(endDate.AddMonths(-i1).Year, endDate.AddMonths(-i1).Month, 1);
-                        var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
-                        var el =
-                            tx.Where(
-                                e => e.Date.Date >= firstDayOfMonth && e.Date.Date <= lastDayOfMonth);
-
-                        var cost = GetBalanceD(el);
-                       
-
-                        res.Add(new LineChartData()
-                        {
-                            Name = firstDayOfMonth.ToString("MM.yyyy"),
-                            Cost = (double) cost
-                        });
-                    }  
-                }
-
-
-                LineChartCollection= new ObservableCollection<LineChartData>(res);
-
-                Sum = GetBalance();
+                SetPieChartData(filteredSource);
+                SetColumnChartData(filteredSource);
+                SetLineChartData(filteredSource);
             }
             catch (Exception ex)
             {

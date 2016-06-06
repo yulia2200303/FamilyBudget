@@ -7,32 +7,28 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:converter="using:UI.MVVM.Converter"
     xmlns:userControl="using:UI.UserControl"
-    x:Name="Main"
     mc:Ignorable="d">
-    <Page.Resources>
 
-        <converter:DateTimeToStringConverter x:Name="DateTimeToStringConverter"/>
-        <converter:OperationTypeToStringConverter x:Name="OperationTypeToStringConverter"/>
-        <converter:CollectionVisibilityConverter x:Name="CollectionVisibilityConverter" />
-
-        <Style x:Key="FilterItemStyle" TargetType="MenuFlyoutItem">
-            <Setter Property = "Foreground" Value="Red"/>
-            <Setter Property = "FontSize" Value="12"/>
-            <Setter Property = "Padding" Value="20,15" />
-        </Style>
-    </Page.Resources>
-
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid x:Name="Main" Style="{StaticResource Main}">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
-        <ScrollViewer Grid.Row="0" 
+
+
+        <StackPanel Grid.Row="0" Style="{StaticResource StackHeader}">
+            <TextBlock Text="Family Budget" Style="{StaticResource TextHeader}"/>
+            <Border Style="{StaticResource BorderHeader}"/>
+        </StackPanel>
+
+
+        <ScrollViewer Grid.Row="1" 
                               HorizontalScrollBarVisibility="Hidden" 
                               HorizontalScrollMode="Enabled"
                               VerticalScrollBarVisibility="Disabled">
-            <StackPanel Orientation="Horizontal" Margin="20,20,20,20" Background="AntiqueWhite">
+            <StackPanel Orientation="Horizontal" Margin="0,10,0, 0">
 
                 <ItemsControl ItemsSource="{Binding Filters}" HorizontalAlignment="Stretch">
                     <ItemsControl.ItemsPanel>
@@ -50,49 +46,92 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
 
-
             </StackPanel>
         </ScrollViewer>
 
-        <Grid Grid.Row="1"  Visibility="{Binding Transactions, Converter={StaticResource CollectionVisibilityConverter}}">
 
-            <GridView  ItemsSource="{Binding Transactions}" IsItemClickEnabled="False" HorizontalContentAlignment="Stretch"
-                  HorizontalAlignment="Stretch" Background="Aqua"
+        <Grid Grid.Row="2"  Visibility="{Binding Transactions, Converter={StaticResource CollectionVisibilityConverter}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <GridView ItemsSource="{Binding  ElementName=Main, Path=DataContext.Transactions}" IsItemClickEnabled="False" HorizontalContentAlignment="Stretch" x:Name="TransactionGridView"
+                    HorizontalAlignment="Stretch" 
                     SelectionMode="Multiple"
-                       x:Name="TransactionGridView"
-                  Padding="0,0,0,7">
+                    Padding="0,0,0,7">
                 <GridView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Top"></StackPanel>
                     </ItemsPanelTemplate>
                 </GridView.ItemsPanel>
                 <GridView.ItemContainerStyle>
-                    <Style TargetType="GridViewItem">
+                    <Style TargetType="GridViewItem" BasedOn="{StaticResource GridViewItemExpanded}">
                         <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
                     </Style>
                 </GridView.ItemContainerStyle>
                 <GridView.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel  HorizontalAlignment="Stretch"   Background="BurlyWood" Padding="5" Margin="5">
-                            <TextBlock Text="{Binding Cost}"></TextBlock>
-                            <TextBlock Text="{Binding Type, Converter={StaticResource OperationTypeToStringConverter}}"></TextBlock>
-                            <TextBlock Text="{Binding Product.Name}"></TextBlock>
-                            <TextBlock Text="{Binding Product.Parent.Name}"></TextBlock>
-                            <TextBlock Text="{Binding Currency.Code}"></TextBlock>
-                            <TextBlock Text="{Binding Date, Converter={StaticResource DateTimeToStringConverter}, ConverterParameter='dd/MM/yyyy'}"></TextBlock>
-                            <TextBlock Text="{Binding Comment}" TextTrimming="WordEllipsis"></TextBlock>
-                        </StackPanel>
+
+                        <Grid  Style="{StaticResource GridDataTmpl}" >
+
+                            <Grid Padding="5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Date" Style="{StaticResource TextBlock}"></TextBlock>
+                                <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource TextBlock}" Text="{Binding Date, Converter={StaticResource DateTimeToStringConverter}, ConverterParameter='dd/MM/yyyy'}"></TextBlock>
+
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="Type" Style="{StaticResource TextBlock}"></TextBlock>
+                                <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource TextBlock}" Text="{Binding Type, Converter={StaticResource OperationTypeToStringConverter}}"></TextBlock>
+
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="Price" Style="{StaticResource TextBlock}"></TextBlock>
+                                <Grid Grid.Row="2" Grid.Column="1">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Cost, Converter={StaticResource DoubleToDecimalConverter}}" Style="{StaticResource TextBlock}"></TextBlock>
+                                        <TextBlock>&#160;</TextBlock>
+                                        <TextBlock Text="{Binding Currency.Code}" Style="{StaticResource TextBlock}"></TextBlock>
+                                    </StackPanel>
+                                </Grid>
+
+                                <TextBlock Grid.Row="3" Grid.Column="0" Text="Order" Style="{StaticResource TextBlock}"></TextBlock>
+                                <Grid Grid.Row="3" Grid.Column="1">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Product.Name}" Style="{StaticResource TextBlock}"></TextBlock>
+                                        <TextBlock  Style="{StaticResource TextBlock}">&#160;/&#160;</TextBlock>
+                                        <TextBlock Text="{Binding Product.Parent.Name}" Style="{StaticResource TextBlock}"></TextBlock>
+                                    </StackPanel>
+                                </Grid>
+
+
+                                <TextBlock Grid.Row="4" Grid.Column="0" Text="Comment" Style="{StaticResource TextBlock}"></TextBlock>
+                                <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding Comment}" TextTrimming="WordEllipsis" Style="{StaticResource TextBlock}"></TextBlock>
+
+                            </Grid>
+                        </Grid>
+
                     </DataTemplate>
                 </GridView.ItemTemplate>
             </GridView>
+
         </Grid>
 
-
-        <StackPanel Grid.Row="1" HorizontalAlignment="Stretch" Margin="20" Visibility="{Binding Transactions, Converter={StaticResource CollectionVisibilityConverter}, ConverterParameter='!'}">
-            <TextBlock Text="No results"></TextBlock>
+        <StackPanel Grid.Row="2" HorizontalAlignment="Stretch" Margin="20" Visibility="{Binding Transactions, Converter={StaticResource CollectionVisibilityConverter}, ConverterParameter='!'}">
+            <TextBlock Text="No results" HorizontalAlignment="Center"></TextBlock>
         </StackPanel>
 
-        <Button Grid.Row="2" Content="Delete transactions" Click="DeleteTransactionBtn_Click"></Button>
+
+        <Button Grid.Row="3" Content="Delete transactions" HorizontalAlignment="Stretch" Click="DeleteTransactionBtn_Click" Visibility="{Binding Transactions, Converter={StaticResource CollectionVisibilityConverter}}"></Button>
 
     </Grid>
 </Page>

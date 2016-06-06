@@ -202,7 +202,6 @@ namespace UI.ViewModel
         private void ClearFields()
         {
             Cost = string.Empty;
-            SelectedDate = null;
             SelectedCategory = null;
             SelectedSubCategory = null;
             Comment = string.Empty;

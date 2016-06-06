@@ -17,7 +17,7 @@
         <converter:ToUpperValueConverter x:Name="ToUpperValueConverter"/>
 
         <Style TargetType="Button" x:Name="BtnStyle">
-            <Setter Property="Background" Value="SlateGray"></Setter>
+            <Setter Property="Background" Value="#252525"></Setter>
             <Setter Property="Height" Value="50"></Setter>
             <Setter Property="BorderThickness" Value="0"></Setter>
             <Setter Property="BorderBrush" Value="Transparent"></Setter>
@@ -27,6 +27,7 @@
 
         <Style TargetType="TextBlock" x:Name="TitleStyle">
             <Setter Property="FontSize" Value="12"></Setter>
+            <Setter Property="Foreground" Value="White"></Setter>
         </Style>
 
         <Style TargetType="FontIcon" x:Name="IconStyle" x:Key="IconStyle">
@@ -35,6 +36,7 @@
             <Setter Property="Glyph" Value="&#xE0E5;"></Setter>
             <Setter Property="Margin" Value="0, 0, 10, 0"></Setter>
             <Setter Property="FontWeight" Value="Bold"></Setter>
+            <Setter Property="Foreground" Value="White"></Setter>
         </Style>
 
         <Style TargetType="TextBlock" x:Name="TextStyle" x:Key="TextStyle">
@@ -42,6 +44,7 @@
             <Setter Property="TextWrapping" Value="WrapWholeWords"></Setter>
             <Setter Property="Height" Value="30"></Setter>
             <Setter Property="LineHeight" Value="0"></Setter>
+            <Setter Property="Foreground" Value="White"></Setter>
         </Style>
 
     </UserControl.Resources>

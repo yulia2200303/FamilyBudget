@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.Storage;
@@ -10,14 +9,12 @@ using Windows.Storage.Pickers;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media.Imaging;
 using DAL.Common;
 using DAL.Model;
 using Newtonsoft.Json;
 using Prism.Commands;
 using UI.Logic;
 using UI.Model;
-using UI.Pages;
 using UI.ViewModel.Common;
 
 namespace UI.ViewModel
@@ -124,34 +121,34 @@ namespace UI.ViewModel
 
             var sm = JsonConvert.SerializeObject(model);
 
-            var savePicker = new Windows.Storage.Pickers.FileSavePicker();
-            savePicker.SuggestedStartLocation =
-                Windows.Storage.Pickers.PickerLocationId.DocumentsLibrary;
-            // Dropdown of file types the user can save the file as
-            savePicker.FileTypeChoices.Add("Plain Text", new List<string>() { ".json" });
-            // Default file name if the user does not type one in or select a file to replace
-            savePicker.SuggestedFileName = "New Document";
-            Windows.Storage.StorageFile file = await savePicker.PickSaveFileAsync();
+            var savePicker = new FileSavePicker { SuggestedStartLocation = PickerLocationId.DocumentsLibrary };
+            savePicker.FileTypeChoices.Add("Json Format", new List<string>() { ".json" });
 
-            await Windows.Storage.FileIO.WriteTextAsync(file, sm);
-
+            savePicker.SuggestedFileName = "Backup " + DateTime.Now.Date.ToString("yy-MM-dd");
+            StorageFile file = await savePicker.PickSaveFileAsync();
+            if (file != null)
+            {
+                await FileIO.WriteTextAsync(file, sm);
+            }
         }
 
         public ICommand ImportCommand { get; }
 
         private async void OnImportCommand()
         {
-            var dialog =new MessageDialog("Восстановить данные? Всяк текущая информация будет потеряна");
+            var dialog = new MessageDialog("Восстановить данные? Всяк текущая информация будет потеряна");
             dialog.Commands.Add(new UICommand("Yes", null, 1));
             dialog.Commands.Add(new UICommand("No", null, 0));
             var result = await dialog.ShowAsync();
-            if((int)result.Id == 0) return;
+            if ((int)result.Id == 0) return;
 
             var userId = UserContext.Current.UserId;
 
-            FileOpenPicker openPicker = new FileOpenPicker();
-            openPicker.ViewMode = PickerViewMode.Thumbnail;
-            openPicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
+            var openPicker = new FileOpenPicker
+            {
+                ViewMode = PickerViewMode.Thumbnail,
+                SuggestedStartLocation = PickerLocationId.PicturesLibrary
+            };
             openPicker.FileTypeFilter.Add(".json");
 
 
@@ -181,7 +178,7 @@ namespace UI.ViewModel
                     }
                     uow.Commit();
 
-                    var assets = uow.AssetRepository.GetByUserId(userId).ToDictionary(c=> c.Name, c => c.Id);
+                    var assets = uow.AssetRepository.GetByUserId(userId).ToDictionary(c => c.Name, c => c.Id);
                     var categories = uow.CategoryRepository.GetByQuery(c => c.Parent == null)
                         .ToDictionary(c => c.Name, c => c.SubCategories.ToDictionary(s => s.Name, s => s.Id));
                     var currencies = uow.CurrencyRepository.GetAll().ToDictionary(c => c.Code, c => c.Id);
