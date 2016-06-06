@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Windows.Input;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using DAL.Common;
@@ -143,32 +144,20 @@ namespace UI.ViewModel
             if (userModel != null)
                 SelectedUser = userModel;
 
-            var dialog = new ContentDialog
+            var dialog = new MessageDialog("Действительно хотите удалить профиль " + SelectedUser.Name);
+            dialog.Commands.Add(new UICommand("Yes", null, 1));
+            dialog.Commands.Add(new UICommand("No", null, 0));
+            var result = await dialog.ShowAsync();
+            if ((int)result.Id == 0) return;
+
+            using (var uow = new UnitOfWork())
             {
-                Title = "Lorem Ipsum",
-                Content = "Действительно хотите удалить профиль " + SelectedUser.Name,
-                PrimaryButtonText = "Да",
-                SecondaryButtonText = "Нет",
-            };
+                uow.UserRepository.DeleteById(SelectedUser.Id);
+                uow.Commit();
+            }
 
-            dialog.PrimaryButtonClick += delegate
-            {
-                using (var uow = new UnitOfWork())
-                {
-                    uow.UserRepository.DeleteById(SelectedUser.Id);
-                    uow.Commit();
-                }
-
-                Users.Remove(SelectedUser);
-                SelectedUser = null;
-            };
-
-            dialog.SecondaryButtonClick += delegate
-            {
-                dialog.Hide();
-            };
-
-            await dialog.ShowAsync();
+            Users.Remove(SelectedUser);
+            SelectedUser = null;
         }
 
         public ICommand LoginCommand { get; }
