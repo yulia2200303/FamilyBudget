@@ -107,6 +107,7 @@
     </Compile>
     <Compile Include="Logic\CurrencyConverter.cs" />
     <Compile Include="Logic\EnumHelper.cs" />
+    <Compile Include="Logic\ErrorMessagesHelper.cs" />
     <Compile Include="Logic\Filter\FilterBuilder.cs" />
     <Compile Include="Logic\Filter\TransactionFilterExt.cs" />
     <Compile Include="Logic\Filter\Filter.cs" />

@@ -117,13 +117,142 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddAssetAB.Label" xml:space="preserve">
+    <value>Hinzufügen</value>
+  </data>
+  <data name="AddAssetBtn.Content" xml:space="preserve">
+    <value>Hinzufügen</value>
+  </data>
+  <data name="AddATransactionBt.Content" xml:space="preserve">
+    <value>Hinzufügen transaktionen</value>
+  </data>
+  <data name="AddATransactionTB.Text" xml:space="preserve">
+    <value>Add-Operation</value>
+  </data>
   <data name="AddBtn.Content" xml:space="preserve">
-    <value>Add de</value>
+    <value>Hinzufügen</value>
   </data>
   <data name="ApplyBtn.Content" xml:space="preserve">
-    <value>Apply de</value>
+    <value>Anwenden</value>
+  </data>
+  <data name="AssetName.PlaceholderText" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="AssetTB.Text" xml:space="preserve">
+    <value>Rechnung</value>
+  </data>
+  <data name="BalanceTB.Text" xml:space="preserve">
+    <value>Balance</value>
+  </data>
+  <data name="CategoryTB.Text" xml:space="preserve">
+    <value>Kategorie</value>
   </data>
   <data name="ChangeLanguage.Text" xml:space="preserve">
     <value>Cnage laugage de</value>
+  </data>
+  <data name="CommentTB.Text" xml:space="preserve">
+    <value>Kommentar</value>
+  </data>
+  <data name="CurrencyAB.Label" xml:space="preserve">
+    <value>Währung</value>
+  </data>
+  <data name="CurrencyTB.Text" xml:space="preserve">
+    <value>Währung</value>
+  </data>
+  <data name="DateTB.Text" xml:space="preserve">
+    <value>Datum</value>
+  </data>
+  <data name="DeleteOfTransactionBt.Content" xml:space="preserve">
+    <value>Löschvorgang</value>
+  </data>
+  <data name="DeleteTrunsactionBt.Content" xml:space="preserve">
+    <value>Löschvorgang</value>
+  </data>
+  <data name="ExportBt.Content" xml:space="preserve">
+    <value>Ausfuhr</value>
+  </data>
+  <data name="ExportTr.Text" xml:space="preserve">
+    <value>Ausfuhr transaktionen</value>
+  </data>
+  <data name="FieldIsRequired" xml:space="preserve">
+    <value>Pflichtfeld</value>
+  </data>
+  <data name="ImportTex.Text" xml:space="preserve">
+    <value>Importe transaktionen</value>
+  </data>
+  <data name="ImportTr.Content" xml:space="preserve">
+    <value>Importe </value>
+  </data>
+  <data name="LengthFrom4To16" xml:space="preserve">
+    <value>Die Länge von 4 bis 16 Zeichen</value>
+  </data>
+  <data name="ListOfTransactionBt.Content" xml:space="preserve">
+    <value>Liste der Operationen</value>
+  </data>
+  <data name="LoginTB.PlaceholderText" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="LoginTex.Text" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="NameExists" xml:space="preserve">
+    <value>Dieser Name ist bereits vorhanden</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Nein</value>
+  </data>
+  <data name="NoResultTB.Text" xml:space="preserve">
+    <value>keine Ergebnisse</value>
+  </data>
+  <data name="OrderTB.Text" xml:space="preserve">
+    <value>Haftbefehl</value>
+  </data>
+  <data name="PasswordPB.PlaceholderText" xml:space="preserve">
+    <value>Kennwort</value>
+  </data>
+  <data name="PasswordTex.Text" xml:space="preserve">
+    <value>Kennwort</value>
+  </data>
+  <data name="PriceTB.Text" xml:space="preserve">
+    <value>Preis</value>
+  </data>
+  <data name="RefreshBt.Content" xml:space="preserve">
+    <value>Aktualisiert</value>
+  </data>
+  <data name="RefreshTB.Text" xml:space="preserve">
+    <value>Aktualisiert</value>
+  </data>
+  <data name="RemoveBtn.Text" xml:space="preserve">
+    <value>löschen</value>
+  </data>
+  <data name="RemoveSelectedItems" xml:space="preserve">
+    <value>Sie sicher, dass Sie die ausgewählten Elemente zu entfernen?</value>
+  </data>
+  <data name="RestoreData" xml:space="preserve">
+    <value>Wiederherstellen von Daten? Alle aktuellen Informationen gehen verloren.</value>
+  </data>
+  <data name="SettingsAB.Label" xml:space="preserve">
+    <value>Einstellunge</value>
+  </data>
+  <data name="SubCategoryTB.Text" xml:space="preserve">
+    <value>Unterkategorie</value>
+  </data>
+  <data name="TotalCountTB.Text" xml:space="preserve">
+    <value>Gesamt</value>
+  </data>
+  <data name="TransactionSuccessfyllyAdded" xml:space="preserve">
+    <value>Die Transaktion wurde erfolgreich hinzugefügt</value>
+  </data>
+  <data name="TypeCB.PlaceholderText" xml:space="preserve">
+    <value>Typ</value>
+  </data>
+  <data name="TypeTB.Text" xml:space="preserve">
+    <value>Typ</value>
+  </data>
+  <data name="WantToDeleteProfile" xml:space="preserve">
+    <value>Sind Sie sicher, dass Sie das Profil zu löschen {0}?</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Ja</value>
   </data>
 </root>

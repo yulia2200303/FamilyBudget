@@ -117,13 +117,142 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddAssetAB.Label" xml:space="preserve">
+    <value>Создать счет</value>
+  </data>
+  <data name="AddAssetBtn.Content" xml:space="preserve">
+    <value>Создать счет</value>
+  </data>
+  <data name="AddATransactionBt.Content" xml:space="preserve">
+    <value>Добавить операцию</value>
+  </data>
+  <data name="AddATransactionTB.Text" xml:space="preserve">
+    <value>Добавить операцию</value>
+  </data>
   <data name="AddBtn.Content" xml:space="preserve">
     <value>Добавить</value>
   </data>
   <data name="ApplyBtn.Content" xml:space="preserve">
     <value>Применить</value>
   </data>
+  <data name="AssetName.PlaceholderText" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="AssetTB.Text" xml:space="preserve">
+    <value>Счет</value>
+  </data>
+  <data name="BalanceTB.Text" xml:space="preserve">
+    <value>Баланс</value>
+  </data>
+  <data name="CategoryTB.Text" xml:space="preserve">
+    <value>Категория</value>
+  </data>
   <data name="ChangeLanguage.Text" xml:space="preserve">
     <value>Сменить язык</value>
+  </data>
+  <data name="CommentTB.Text" xml:space="preserve">
+    <value>Комментарий</value>
+  </data>
+  <data name="CurrencyAB.Label" xml:space="preserve">
+    <value>Валюта</value>
+  </data>
+  <data name="CurrencyTB.Text" xml:space="preserve">
+    <value>Валюта</value>
+  </data>
+  <data name="DateTB.Text" xml:space="preserve">
+    <value>Дата</value>
+  </data>
+  <data name="DeleteOfTransactionBt.Content" xml:space="preserve">
+    <value>Удалить операции</value>
+  </data>
+  <data name="DeleteTrunsactionBt.Content" xml:space="preserve">
+    <value>Удалить операцию</value>
+  </data>
+  <data name="ExportBt.Content" xml:space="preserve">
+    <value>Экспорт</value>
+  </data>
+  <data name="ExportTr.Text" xml:space="preserve">
+    <value>Экспорт операций</value>
+  </data>
+  <data name="FieldIsRequired" xml:space="preserve">
+    <value>Поле не заполнено</value>
+  </data>
+  <data name="ImportTex.Text" xml:space="preserve">
+    <value>Импорт операций</value>
+  </data>
+  <data name="ImportTr.Content" xml:space="preserve">
+    <value>Импорт </value>
+  </data>
+  <data name="LengthFrom4To16" xml:space="preserve">
+    <value>Длинна от 4 до 16 символов</value>
+  </data>
+  <data name="ListOfTransactionBt.Content" xml:space="preserve">
+    <value>Список операций</value>
+  </data>
+  <data name="LoginTB.PlaceholderText" xml:space="preserve">
+    <value>Логин</value>
+  </data>
+  <data name="LoginTex.Text" xml:space="preserve">
+    <value>Логин</value>
+  </data>
+  <data name="NameExists" xml:space="preserve">
+    <value>Такое имя уже существует</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="NoResultTB.Text" xml:space="preserve">
+    <value>Нет результатов</value>
+  </data>
+  <data name="OrderTB.Text" xml:space="preserve">
+    <value>Услуга</value>
+  </data>
+  <data name="PasswordPB.PlaceholderText" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
+  <data name="PasswordTex.Text" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
+  <data name="PriceTB.Text" xml:space="preserve">
+    <value>Стоимость</value>
+  </data>
+  <data name="RefreshBt.Content" xml:space="preserve">
+    <value>Обновить</value>
+  </data>
+  <data name="RefreshTB.Text" xml:space="preserve">
+    <value>Обновлено</value>
+  </data>
+  <data name="RemoveBtn.Text" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="RemoveSelectedItems" xml:space="preserve">
+    <value>Вы точно хотите удалить выбранные элементы?</value>
+  </data>
+  <data name="RestoreData" xml:space="preserve">
+    <value>Восстановить данные? Вся текущая информация будет потеряна.</value>
+  </data>
+  <data name="SettingsAB.Label" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="SubCategoryTB.Text" xml:space="preserve">
+    <value>Подкатегория</value>
+  </data>
+  <data name="TotalCountTB.Text" xml:space="preserve">
+    <value>Общее количество</value>
+  </data>
+  <data name="TransactionSuccessfyllyAdded" xml:space="preserve">
+    <value>Транзакция успешно добавлена</value>
+  </data>
+  <data name="TypeCB.PlaceholderText" xml:space="preserve">
+    <value>Тип</value>
+  </data>
+  <data name="TypeTB.Text" xml:space="preserve">
+    <value>Тип</value>
+  </data>
+  <data name="WantToDeleteProfile" xml:space="preserve">
+    <value>Вы действительно хотите удалить профиль {0}?</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Да</value>
   </data>
 </root>

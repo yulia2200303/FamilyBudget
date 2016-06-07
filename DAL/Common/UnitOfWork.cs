@@ -10,9 +10,9 @@ namespace DAL.Common
         private CategoryRepository _categoryRepository;
         private CurrencyRepository _currencyRepository;
         private FamilyBudgetContext _dbContext;
-#pragma warning disable CS0414 // The field 'UnitOfWork._disposed' is assigned but its value is never used
+
         private bool _disposed;
-#pragma warning restore CS0414 // The field 'UnitOfWork._disposed' is assigned but its value is never used
+
         private TransactionRepository _transactionRepository;
 
         private UserRepository _userRepository;

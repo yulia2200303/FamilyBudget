@@ -117,13 +117,142 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddAssetAB.Label" xml:space="preserve">
+    <value>Add asset</value>
+  </data>
+  <data name="AddAssetBtn.Content" xml:space="preserve">
+    <value>Add asset</value>
+  </data>
+  <data name="AddATransactionBt.Content" xml:space="preserve">
+    <value>Add transaction</value>
+  </data>
+  <data name="AddATransactionTB.Text" xml:space="preserve">
+    <value>Add a transaction</value>
+  </data>
   <data name="AddBtn.Content" xml:space="preserve">
     <value>Add</value>
   </data>
   <data name="ApplyBtn.Content" xml:space="preserve">
     <value>Apply</value>
   </data>
+  <data name="AssetName.PlaceholderText" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="AssetTB.Text" xml:space="preserve">
+    <value>Asset</value>
+  </data>
+  <data name="BalanceTB.Text" xml:space="preserve">
+    <value>Balance</value>
+  </data>
+  <data name="CategoryTB.Text" xml:space="preserve">
+    <value>Category</value>
+  </data>
   <data name="ChangeLanguage.Text" xml:space="preserve">
     <value>Change Language</value>
+  </data>
+  <data name="CommentTB.Text" xml:space="preserve">
+    <value>Comment</value>
+  </data>
+  <data name="CurrencyAB.Label" xml:space="preserve">
+    <value>Currency</value>
+  </data>
+  <data name="CurrencyTB.Text" xml:space="preserve">
+    <value>Currency</value>
+  </data>
+  <data name="DateTB.Text" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="DeleteOfTransactionBt.Content" xml:space="preserve">
+    <value>Delete of transactions</value>
+  </data>
+  <data name="DeleteTrunsactionBt.Content" xml:space="preserve">
+    <value>Delete of transaction</value>
+  </data>
+  <data name="ExportBt.Content" xml:space="preserve">
+    <value>Export </value>
+  </data>
+  <data name="ExportTr.Text" xml:space="preserve">
+    <value>Export transactions</value>
+  </data>
+  <data name="FieldIsRequired" xml:space="preserve">
+    <value>Field is required</value>
+  </data>
+  <data name="ImportTex.Text" xml:space="preserve">
+    <value>Import transactions</value>
+  </data>
+  <data name="ImportTr.Content" xml:space="preserve">
+    <value>Import</value>
+  </data>
+  <data name="LengthFrom4To16" xml:space="preserve">
+    <value>The length of 4 to 16 characters</value>
+  </data>
+  <data name="ListOfTransactionBt.Content" xml:space="preserve">
+    <value>List of transactions</value>
+  </data>
+  <data name="LoginTB.PlaceholderText" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="LoginTex.Text" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="NameExists" xml:space="preserve">
+    <value>This name already exists</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="NoResultTB.Text" xml:space="preserve">
+    <value>No result</value>
+  </data>
+  <data name="OrderTB.Text" xml:space="preserve">
+    <value>Order</value>
+  </data>
+  <data name="PasswordPB.PlaceholderText" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="PasswordTex.Text" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="PriceTB.Text" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="RefreshBt.Content" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="RefreshTB.Text" xml:space="preserve">
+    <value>Updated</value>
+  </data>
+  <data name="RemoveBtn.Text" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="RemoveSelectedItems" xml:space="preserve">
+    <value>You sure you want to remove the selected items?</value>
+  </data>
+  <data name="RestoreData" xml:space="preserve">
+    <value>Recover Data? All current information will be lost.</value>
+  </data>
+  <data name="SettingsAB.Label" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="SubCategoryTB.Text" xml:space="preserve">
+    <value>Subcategory</value>
+  </data>
+  <data name="TotalCountTB.Text" xml:space="preserve">
+    <value>Total count</value>
+  </data>
+  <data name="TransactionSuccessfyllyAdded" xml:space="preserve">
+    <value>The transaction was successfully added</value>
+  </data>
+  <data name="TypeCB.PlaceholderText" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="TypeTB.Text" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="WantToDeleteProfile" xml:space="preserve">
+    <value>Are you sure you want to delete the profile {0}?</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
   </data>
 </root>

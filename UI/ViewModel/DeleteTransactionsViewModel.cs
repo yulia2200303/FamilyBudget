@@ -2,16 +2,13 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Windows.ApplicationModel.Resources;
 using Windows.UI.Popups;
 using DAL.Common;
 using DAL.Model;
 using Microsoft.Practices.Prism.Commands;
-using Shared.Constant;
-using Shared.Enum;
-using UI.Logic;
 using UI.Logic.Filter;
 using UI.ViewModel.Common;
 
@@ -19,10 +16,10 @@ namespace UI.ViewModel
 {
     public class DeleteTransactionsViewModel : BaseViewModel
     {
-        private int assetId;
+        private readonly int _assetId;
         public DeleteTransactionsViewModel(int assetId)
         {
-            this.assetId = assetId;
+            this._assetId = assetId;
             FilterChangeCommand = new DelegateCommand<object>(OnFilterChange);
             Filters = new ObservableCollection<Filter>(FilterBuilder.BuildFilters());
 
@@ -33,7 +30,7 @@ namespace UI.ViewModel
         {
             using (var uow = new UnitOfWork())
             {
-                _sourceTransactions = uow.TransactionRepository.GetByAssetId(assetId);
+                _sourceTransactions = uow.TransactionRepository.GetByAssetId(_assetId);
                 Transactions = new ObservableCollection<Transaction>(_sourceTransactions.Filter(Filters.Select(f => f.SelectedItem)));
             }
         }
@@ -45,11 +42,11 @@ namespace UI.ViewModel
 
         public async Task Remove(IEnumerable<Transaction> transactions)
         {
-            var dialog = new MessageDialog("Вы точно хотите удалить выбранные элементы");
+            var dialog = new MessageDialog(ResourceLoader.GetForCurrentView().GetString("RemoveSelectedItems"));
 
-            dialog.Commands.Add(new UICommand("Ok") { Id = 0 });
+            dialog.Commands.Add(new UICommand(ResourceLoader.GetForCurrentView().GetString("Yes")) { Id = 0 });
 
-            dialog.Commands.Add(new UICommand("Cancel") { Id = 1 });
+            dialog.Commands.Add(new UICommand(ResourceLoader.GetForCurrentView().GetString("No")) { Id = 1 });
 
             dialog.DefaultCommandIndex = 0;
 

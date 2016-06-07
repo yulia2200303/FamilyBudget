@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Windows.ApplicationModel.Resources;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.UI.Popups;
@@ -136,9 +137,9 @@ namespace UI.ViewModel
 
         private async void OnImportCommand()
         {
-            var dialog = new MessageDialog("Восстановить данные? Всяк текущая информация будет потеряна");
-            dialog.Commands.Add(new UICommand("Yes", null, 1));
-            dialog.Commands.Add(new UICommand("No", null, 0));
+            var dialog = new MessageDialog(ResourceLoader.GetForCurrentView().GetString("RestoreData"));
+            dialog.Commands.Add(new UICommand(ResourceLoader.GetForCurrentView().GetString("Yes"), null, 1));
+            dialog.Commands.Add(new UICommand(ResourceLoader.GetForCurrentView().GetString("No"), null, 0));
             var result = await dialog.ShowAsync();
             if ((int)result.Id == 0) return;
 
@@ -157,7 +158,7 @@ namespace UI.ViewModel
 
             if (file != null)
             {
-                var sm = await Windows.Storage.FileIO.ReadTextAsync(file);
+                var sm = await FileIO.ReadTextAsync(file);
 
                 var model = JsonConvert.DeserializeObject<ImportModel>(sm);
 

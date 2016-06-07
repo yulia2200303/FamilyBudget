@@ -29,9 +29,9 @@
                     </Grid>
 
                     <StackPanel x:Name="StackPanelBtn" Height="0" Margin="0" Padding="30, 0">
-                        <Button Content="Add a transaction" HorizontalAlignment="Stretch" Command="{Binding DataContext.AddTransactionCommand, ElementName=Main}" CommandParameter="{Binding}"/>
-                        <Button Content="List of transaction" HorizontalAlignment="Stretch" Command="{Binding DataContext.NavigateToTransactionList, ElementName=Main}" CommandParameter="{Binding}"/>
-                        <Button Content="Delete a transaction" HorizontalAlignment="Stretch" Command="{Binding DataContext.NavigateToDeleteTransaction, ElementName=Main}" CommandParameter="{Binding}"/>
+                        <Button x:Uid="AddATransactionBt" Content="Add a transaction" HorizontalAlignment="Stretch" Command="{Binding DataContext.AddTransactionCommand, ElementName=Main}" CommandParameter="{Binding}"/>
+                        <Button x:Uid="ListOfTransactionBt" Content="List of transaction" HorizontalAlignment="Stretch" Command="{Binding DataContext.NavigateToTransactionList, ElementName=Main}" CommandParameter="{Binding}"/>
+                        <Button x:Uid="DeleteOfTransactionBt" Content="Delete a transaction" HorizontalAlignment="Stretch" Command="{Binding DataContext.NavigateToDeleteTransaction, ElementName=Main}" CommandParameter="{Binding}"/>
                     </StackPanel>
                 </StackPanel>
             </Grid>
@@ -67,16 +67,16 @@
     <Page.BottomAppBar>
         <AppBar>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
-                <AppBarButton Name="Show" Icon="World" Label="Currency" Click="Navigate_ToCurrency" />
-                <AppBarButton Name="Button" Icon="Setting" Label="Settings" Click="Navigate_ToSettings"/>
-                <AppBarButton Name="AddAssetBtn" Icon="Edit" Label="Add Asset">
+                <AppBarButton x:Uid="CurrencyAB" Name="Show" Icon="World" Label="Currency" Click="Navigate_ToCurrency" />
+                <AppBarButton x:Uid="SettingsAB" Name="Button" Icon="Setting" Label="Settings" Click="Navigate_ToSettings"/>
+                <AppBarButton x:Uid="AddAssetAB" Name="AddAssetBtn" Icon="Edit" Label="Add Asset">
                     <AppBarButton.Flyout>
                         <Flyout Placement="Full" helpers:FlyoutHelpers.Parent="{Binding ElementName=AddAssetBtn}" helpers:FlyoutHelpers.IsOpen="{Binding IsFlyoutOpen, Mode=TwoWay}" FlyoutPresenterStyle="{StaticResource PopupFlyout}">
                             <Grid Margin="30">
                                 <StackPanel>
-                                    <TextBox PlaceholderText="Name" Text="{Binding AssetName, Mode=TwoWay}"></TextBox>
+                                    <TextBox x:Uid="AssetName" PlaceholderText="Name" Text="{Binding AssetName, Mode=TwoWay}"></TextBox>
                                     <TextBlock Text="{Binding Errors[AssetName][0]}" Visibility="{Binding Errors[AssetName], Converter={StaticResource ErrorToVisibilityConverter}}" Style="{StaticResource TextError}" />
-                                    <Button Content="Add Asset" Command="{Binding AddAssetCommand}"></Button>
+                                    <Button x:Uid="AddAssetBtn" Content="Add Asset" Command="{Binding AddAssetCommand}"></Button>
                                 </StackPanel>
                             </Grid>
                         </Flyout>

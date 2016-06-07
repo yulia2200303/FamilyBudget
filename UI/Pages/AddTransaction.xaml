@@ -15,7 +15,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Style="{StaticResource StackHeader}">
-            <TextBlock Text="Add a transaction" Style="{StaticResource TextHeader}"/>
+            <TextBlock x:Uid="AddATransactionTB" Text="Add a transaction" Style="{StaticResource TextHeader}"/>
             <Border Style="{StaticResource BorderHeader}"/>
         </StackPanel>
 
@@ -43,37 +43,37 @@
             </Grid.ColumnDefinitions>
 
 
-            <TextBlock Grid.Row="0" Grid.Column="0" Text="Date"></TextBlock>
+            <TextBlock x:Uid="DateTB" Grid.Row="0" Grid.Column="0" Text="Date"></TextBlock>
             <CalendarDatePicker Grid.Row="0" Grid.Column="1" x:Name="CalendarDatePicker" PlaceholderText="Selected Date"  command:CalendarDatePickerCommand.SelectedDate="{Binding SelectedDate, Mode=TwoWay}"  command:CalendarDatePickerCommand.Command="{Binding DateChangedCommand}" />
             <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Errors[SelectedDate][0]}" Visibility="{Binding Errors[SelectedDate], Converter={StaticResource ErrorToVisibilityConverter}}" Style="{StaticResource TextError}"/>
 
-            <TextBlock Grid.Row="2" Grid.Column="0" Text="Operation"></TextBlock>
-            <ComboBox Grid.Row="2" Grid.Column="1" PlaceholderText="Operation" ItemsSource="{Binding Operations}"  DisplayMemberPath="Name" SelectedValuePath="Value"  SelectedValue="{Binding Type, Mode=TwoWay}" />
+            <TextBlock x:Uid="TypeTB" Grid.Row="2" Grid.Column="0" Text="Operation"></TextBlock>
+            <ComboBox x:Uid="TypeCB" Grid.Row="2" Grid.Column="1" PlaceholderText="Operation" ItemsSource="{Binding Operations}"  DisplayMemberPath="Name" SelectedValuePath="Value"  SelectedValue="{Binding Type, Mode=TwoWay}" />
             <TextBlock Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Errors[Type][0]}" Visibility="{Binding Errors[Type], Converter={StaticResource ErrorToVisibilityConverter}}" Style="{StaticResource TextError}"/>
 
 
-            <TextBlock Grid.Row="4" Grid.Column="0" Text="Asset"></TextBlock>
+            <TextBlock x:Uid="AssetTB" Grid.Row="4" Grid.Column="0" Text="Asset"></TextBlock>
             <ComboBox  Grid.Row="4" Grid.Column="1" PlaceholderText="Asset" ItemsSource="{Binding Assets}" SelectedItem="{Binding SelectedAsset, Mode=TwoWay}"  DisplayMemberPath="Name" HorizontalAlignment="Stretch" ></ComboBox>
 
 
-            <TextBlock Grid.Row="5" Grid.Column="0" Text="Cost"></TextBlock>
+            <TextBlock x:Uid="PriceTB" Grid.Row="5" Grid.Column="0" Text="Cost"></TextBlock>
             <TextBox Grid.Row="5" Grid.Column="1"  PlaceholderText="Cost" Text="{Binding Cost, Mode=TwoWay}"></TextBox>
             <TextBlock Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Errors[Cost][0]}"  Visibility="{Binding Errors[Cost], Converter={StaticResource ErrorToVisibilityConverter}}" Style="{StaticResource TextError}"/>
 
 
-            <TextBlock Grid.Row="7" Grid.Column="0" Text="Currency"></TextBlock>
+            <TextBlock x:Uid="CurrencyTB" Grid.Row="7" Grid.Column="0" Text="Currency"></TextBlock>
             <ComboBox  Grid.Row="7" Grid.Column="1" PlaceholderText="Currency" ItemsSource="{Binding Currencies}" SelectedItem="{Binding SelectedCurrnecy, Mode=TwoWay}"  DisplayMemberPath="Code"></ComboBox>
 
 
-            <TextBlock Grid.Row="8" Grid.Column="0" Text="Category"></TextBlock>
+            <TextBlock x:Uid="CategoryTB" Grid.Row="8" Grid.Column="0" Text="Category"></TextBlock>
             <ComboBox Grid.Row="8" Grid.Column="1" PlaceholderText="Caegory" ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory, Mode=TwoWay}"  DisplayMemberPath="Name"></ComboBox>
             <TextBlock  Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Errors[SelectedCategory][0]}" Visibility="{Binding Errors[SelectedCategory], Converter={StaticResource ErrorToVisibilityConverter}}" Style="{StaticResource TextError}"/>
 
-            <TextBlock Grid.Row="10" Grid.Column="0" Text="Sub category"></TextBlock>
+            <TextBlock x:Uid="SubCategoryTB" Grid.Row="10" Grid.Column="0" Text="Sub category"></TextBlock>
             <ComboBox Grid.Row="10" Grid.Column="1" PlaceholderText="Sub category"  ItemsSource="{Binding SubCategories}" SelectedItem="{Binding SelectedSubCategory, Mode=TwoWay}"  DisplayMemberPath="Name" ></ComboBox>
             <TextBlock Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Errors[SelectedSubCategory][0]}" Visibility="{Binding Errors[SelectedSubCategory], Converter={StaticResource ErrorToVisibilityConverter}}" Style="{StaticResource TextError}"/>
 
-            <TextBlock Grid.Row="12" Grid.Column="0" Text="Comment"></TextBlock>
+            <TextBlock x:Uid="CommentTB" Grid.Row="12" Grid.Column="0" Text="Comment"></TextBlock>
             <TextBox   Grid.Row="12" Grid.Column="1" PlaceholderText="Comment" AcceptsReturn="True" TextWrapping="Wrap" Height="60" Text="{Binding Comment, Mode=TwoWay}" />
 
 

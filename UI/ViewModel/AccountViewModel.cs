@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Windows.Input;
+using Windows.ApplicationModel.Resources;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -65,9 +66,10 @@ namespace UI.ViewModel
 
         private string _login;
 
-        [Required(ErrorMessage = "Name is required.")]
-        [StringLength(16, MinimumLength = 4, ErrorMessage = "Длинна от 4 до 16 символов")]
-        [UniqueUserName(ErrorMessage = "Такой профиль уже существует")]
+
+        [Required(ErrorMessageResourceType = typeof(ErrorMessagesHelper), ErrorMessageResourceName = "RequiredErrorMessage")]
+        [StringLength(16, MinimumLength = 4, ErrorMessageResourceType = typeof(ErrorMessagesHelper), ErrorMessageResourceName = "LengthRange")]
+        [UniqueUserName(ErrorMessageResourceType = typeof(ErrorMessagesHelper), ErrorMessageResourceName = "NameAlreadyExists")]
         public string Login
         {
             get { return _login; }
@@ -76,8 +78,8 @@ namespace UI.ViewModel
 
         private string _password;
 
-        [MinLengthIf("IsPasswordSet", true, 6, "Длинна пароля должна быть не менее 6 символов")]
-        [StringLength(16, ErrorMessage = "Длинна до 16 символов")]
+        [MinLengthIf("IsPasswordSet", true, 4, ErrorMessageResourceType = typeof(ErrorMessagesHelper), ErrorMessageResourceName = "LengthRange")]
+        [StringLength(16, MinimumLength = 4, ErrorMessageResourceType = typeof(ErrorMessagesHelper), ErrorMessageResourceName = "LengthRange")]
         public string Password
         {
             get { return _password; }
@@ -143,10 +145,10 @@ namespace UI.ViewModel
         {
             if (userModel != null)
                 SelectedUser = userModel;
-
-            var dialog = new MessageDialog("Действительно хотите удалить профиль " + SelectedUser.Name);
-            dialog.Commands.Add(new UICommand("Yes", null, 1));
-            dialog.Commands.Add(new UICommand("No", null, 0));
+            
+            var dialog = new MessageDialog(string.Format(ResourceLoader.GetForCurrentView().GetString("WantToDeleteProfile"), SelectedUser.Name));
+            dialog.Commands.Add(new UICommand(ResourceLoader.GetForCurrentView().GetString("Yes"), null, 1));
+            dialog.Commands.Add(new UICommand(ResourceLoader.GetForCurrentView().GetString("No"), null, 0));
             var result = await dialog.ShowAsync();
             if ((int)result.Id == 0) return;
 

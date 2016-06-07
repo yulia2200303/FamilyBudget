@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Windows.Input;
+using Windows.ApplicationModel.Resources;
 using Windows.UI.Popups;
 using DAL.Common;
 using DAL.Model;
@@ -47,7 +48,7 @@ namespace UI.ViewModel
         }
 
         private int _type;
-        [Range(1, 2, ErrorMessage = "Выберете тип операции")]
+        [Range(1, 2, ErrorMessage = "Select the type of operation")]
         public int Type
         {
             get { return _type; }
@@ -80,7 +81,7 @@ namespace UI.ViewModel
 
         private Category _selectedCategory;
 
-        [Required(ErrorMessage = "Выберете категорию")]
+        [Required(ErrorMessage = "Select the category")]
         public Category SelectedCategory
         {
             get { return _selectedCategory; }
@@ -95,13 +96,12 @@ namespace UI.ViewModel
                 {
                     OnCategoryChange(value.Name);
                 }
-               
             }
         }
 
         private Category _selectedSubCategory;
 
-        [Required(ErrorMessage = "Выберете под категорию")]
+        [Required(ErrorMessage = "Select the subcategory")]
         public Category SelectedSubCategory
         {
             get { return _selectedSubCategory; }
@@ -151,8 +151,8 @@ namespace UI.ViewModel
 
         private string _cost;
 
-        [Required(ErrorMessage = "Заполните поле стоимость")]
-        [RegularExpression(@"^\d+(\.\d{1,2})?$", ErrorMessage = "Неправильный формат стоимости")]
+        [Required(ErrorMessage = "Fill the cost")]
+        [RegularExpression(@"^\d+(\.\d{1,2})?$", ErrorMessage = "Incorrect value format")]
         public string Cost
         {
             get { return _cost; }
@@ -160,7 +160,7 @@ namespace UI.ViewModel
         }
 
         private DateTimeOffset? _date;
-        [Required(ErrorMessage = "Выб дату")]
+        [Required(ErrorMessage = "Select the date")]
         public DateTimeOffset? SelectedDate
         {
             get { return _date; }
@@ -176,7 +176,7 @@ namespace UI.ViewModel
         {
             if(!ValidateProperties()) return;
 
-            var transaction = new Transaction()
+            var transaction = new Transaction
             {
                 AssetId = SelectedAsset.Id,
                 Comment = Comment,
@@ -193,7 +193,7 @@ namespace UI.ViewModel
                 uow.Commit();
             }
 
-            var dialog = new MessageDialog("Все Доавлено", "Добавлено");
+            var dialog = new MessageDialog(ResourceLoader.GetForCurrentView().GetString("TransactionSuccessfyllyAdded"));
             await dialog.ShowAsync();
 
             ClearFields();

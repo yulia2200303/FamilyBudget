@@ -164,8 +164,8 @@
                     </Grid.ColumnDefinitions>
 
 
-                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Total count"></TextBlock>
-                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Balance"></TextBlock>
+                    <TextBlock x:Uid="TotalCountTB" Grid.Row="0" Grid.Column="0" Text="Total count"></TextBlock>
+                    <TextBlock x:Uid="BalanceTB" Grid.Row="1" Grid.Column="0" Text="Balance"></TextBlock>
 
                     <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Transactions.Count}"></TextBox>
                     <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Sum}"></TextBox>
@@ -208,13 +208,13 @@
                                             <ColumnDefinition></ColumnDefinition>
                                         </Grid.ColumnDefinitions>
 
-                                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Date" Style="{StaticResource TextBlock}"></TextBlock>
-                                        <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource TextBlock}" Text="{Binding Date, Converter={StaticResource DateTimeToStringConverter}, ConverterParameter='dd/MM/yyyy'}"></TextBlock>
+                                        <TextBlock x:Uid="DateTB" Grid.Row="0" Grid.Column="0" Text="Date" Style="{StaticResource TextBlock}"></TextBlock>
+                                        <TextBlock  Grid.Row="0" Grid.Column="1" Style="{StaticResource TextBlock}" Text="{Binding Date, Converter={StaticResource DateTimeToStringConverter}, ConverterParameter='dd/MM/yyyy'}"></TextBlock>
 
-                                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Type" Style="{StaticResource TextBlock}"></TextBlock>
+                                        <TextBlock x:Uid="TypeTB" Grid.Row="1" Grid.Column="0" Text="Type" Style="{StaticResource TextBlock}"></TextBlock>
                                         <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource TextBlock}" Text="{Binding Type, Converter={StaticResource OperationTypeToStringConverter}}"></TextBlock>
 
-                                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Price" Style="{StaticResource TextBlock}"></TextBlock>
+                                        <TextBlock x:Uid="PriceTB" Grid.Row="2" Grid.Column="0" Text="Price" Style="{StaticResource TextBlock}"></TextBlock>
                                         <Grid Grid.Row="2" Grid.Column="1">
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBlock Text="{Binding Cost, Converter={StaticResource DoubleToDecimalConverter}}" Style="{StaticResource TextBlock}"></TextBlock>
@@ -223,7 +223,7 @@
                                             </StackPanel>
                                         </Grid>
 
-                                        <TextBlock Grid.Row="3" Grid.Column="0" Text="Order" Style="{StaticResource TextBlock}"></TextBlock>
+                                        <TextBlock x:Uid="OrderTB" Grid.Row="3" Grid.Column="0" Text="Order" Style="{StaticResource TextBlock}"></TextBlock>
                                         <Grid Grid.Row="3" Grid.Column="1">
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBlock Text="{Binding Product.Name}" Style="{StaticResource TextBlock}"></TextBlock>
@@ -233,7 +233,7 @@
                                         </Grid>
 
 
-                                        <TextBlock Grid.Row="4" Grid.Column="0" Text="Comment" Style="{StaticResource TextBlock}"></TextBlock>
+                                        <TextBlock x:Uid="CommentTB" Grid.Row="4" Grid.Column="0" Text="Comment" Style="{StaticResource TextBlock}"></TextBlock>
                                         <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding Comment}" TextTrimming="WordEllipsis" Style="{StaticResource TextBlock}"></TextBlock>
 
                                     </Grid>
@@ -319,7 +319,7 @@
         </Grid>
 
         <StackPanel Grid.Row="2" HorizontalAlignment="Stretch" Margin="20" Visibility="{Binding Transactions, Converter={StaticResource CollectionVisibilityConverter}, ConverterParameter='!'}">
-            <TextBlock Text="No results" HorizontalAlignment="Center"></TextBlock>
+            <TextBlock x:Uid="NoResultTB" Text="No results" HorizontalAlignment="Center"></TextBlock>
         </StackPanel>
 
 

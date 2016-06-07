@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using DAL.Common;
+using UI.ViewModel;
 using UI.ViewModel.Common;
 
 namespace UI.Logic

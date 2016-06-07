@@ -53,13 +53,13 @@ namespace UI.ViewModel
                     var cwWrapper = new CurrencyServiceWrapper();
                     await cwWrapper.RefreshCurrencies();
                     var currencies = uow.CurrencyRepository.GetCurrenciesByCode(excludedCodes: new[] { CurrencyCode.BelarussianRub });
-                    Currencies = new ObservableCollection<DAL.Model.Currency>(currencies);
+                    Currencies = new ObservableCollection<Currency>(currencies);
                     UpdateDate = DateTime.Now;
                 }
             }
             catch (Exception ex)
             {
-                var dialog = new MessageDialog(ex.Message, "Ошибка!");
+                var dialog = new MessageDialog(ex.Message, "Refresh Error");
                 await dialog.ShowAsync();
             }
         }

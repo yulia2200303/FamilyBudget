@@ -31,11 +31,11 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Row="0" Grid.Column="0" Text="Import transaction"></TextBlock>
-            <Button Grid.Row="0" Grid.Column="1" Content="Import" HorizontalAlignment="Stretch" Command="{Binding ImportCommand}"></Button>
+            <TextBlock x:Uid="ImportTex" Grid.Row="0" Grid.Column="0" Text="Import transaction"></TextBlock>
+            <Button x:Uid="ImportTr" Grid.Row="0" Grid.Column="1" Content="Import" HorizontalAlignment="Stretch" Command="{Binding ImportCommand}"></Button>
 
-            <TextBlock Grid.Row="1" Grid.Column="0" Text="Export transaction"></TextBlock>
-            <Button Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" Content="Export" Command="{Binding ExportCommand}"></Button>
+            <TextBlock x:Uid="ExportTr" Grid.Row="1" Grid.Column="0" Text="Export transaction"></TextBlock>
+            <Button x:Uid="ExportBt" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" Content="Export" Command="{Binding ExportCommand}"></Button>
 
             <TextBlock  x:Uid="ChangeLanguage"  Grid.Row="2" Grid.Column="0" Text="Сменить язык"></TextBlock>
             <ComboBox ItemsSource="{Binding Languages}"  

@@ -35,12 +35,12 @@
                         <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Login"></TextBlock>
-                    <TextBox Grid.Row="0" Grid.Column="1"  Text="{Binding Login, Mode=TwoWay}" PlaceholderText="Login" BorderThickness="0,0,0,0" ></TextBox>
+                    <TextBlock x:Uid="LoginTex" Grid.Row="0" Grid.Column="0" Text="Login"></TextBlock>
+                    <TextBox x:Uid="LoginTB" Grid.Row="0" Grid.Column="1"  Text="{Binding Login, Mode=TwoWay}" PlaceholderText="Login" BorderThickness="0,0,0,0" ></TextBox>
 
 
                     <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Errors[Login][0]}" Visibility="{Binding Errors[Login], Converter={StaticResource ErrorToVisibilityConverter}}" Style="{StaticResource TextError}" />
-                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Password" />
+                    <TextBlock x:Uid="PasswordTex" Grid.Row="2" Grid.Column="0" Text="Password" />
                     <CheckBox Grid.Row="2" Grid.Column="1" IsChecked="{Binding IsPasswordSet, Mode=TwoWay}"></CheckBox>
 
                     <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Visibility="{Binding IsPasswordSet, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -53,7 +53,7 @@
                             <ColumnDefinition Width="*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
 
-                        <PasswordBox Grid.Row="0" Grid.Column="1" Password="{Binding Password, Mode=TwoWay}" PlaceholderText="Password"></PasswordBox>
+                        <PasswordBox x:Uid="PasswordPB" Grid.Row="0" Grid.Column="1" Password="{Binding Password, Mode=TwoWay}" PlaceholderText="Password"></PasswordBox>
                         <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Errors[Password][0]}" Visibility="{Binding Errors[Password], Converter={StaticResource ErrorToVisibilityConverter}}" Style="{StaticResource TextError}" />
 
                     </Grid>
@@ -82,7 +82,7 @@
             <ListView.Resources>
                 <MenuFlyout x:Name="UserMwnuLayout">
                     <MenuFlyout.Items>
-                        <MenuFlyoutItem x:Name="Remove" Text="Remove"  Command="{Binding RemoveCommand}"  />
+                        <MenuFlyoutItem x:Uid="RemoveBtn" x:Name="Remove" Text="Remove"  Command="{Binding RemoveCommand}"  />
                     </MenuFlyout.Items>
                 </MenuFlyout>
             </ListView.Resources>
@@ -105,7 +105,7 @@
                                             </VisualState>
                                             <VisualState x:Name="SelectedUnfocused">
                                                 <Storyboard>
-                                                    <ColorAnimation Duration="0" Storyboard.TargetName="myback" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="Red"/>
+                                                    <ColorAnimation Duration="0" Storyboard.TargetName="myback" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="Transparent"/>
                                                 </Storyboard>
                                             </VisualState>
                                         </VisualStateGroup>

@@ -52,10 +52,9 @@ namespace UI.ViewModel
 
         private string _assetName;
 
-        [MaxLength(20, ErrorMessage = "Максимальная длина не превышает 20 символов")]
-        [Required(ErrorMessage = "Поле не заполнено")]
-        [MinLength(4, ErrorMessage = "Минимум 4 символа")]
-        [UniqueAssetAttibute(ErrorMessage = "Такой кошелек уже создан")]
+        [Required(ErrorMessageResourceType = typeof(ErrorMessagesHelper), ErrorMessageResourceName = "RequiredErrorMessage")]
+        [StringLength(16, MinimumLength = 4, ErrorMessageResourceType = typeof(ErrorMessagesHelper), ErrorMessageResourceName = "LengthRange")]
+        [UniqueAssetAttibute(ErrorMessageResourceType = typeof(ErrorMessagesHelper), ErrorMessageResourceName = "NameAlreadyExists")]
         public string AssetName
         {
             get { return _assetName; }
