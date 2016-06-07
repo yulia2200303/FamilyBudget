@@ -16,7 +16,6 @@ namespace UI.Pages
         public AddTransaction()
         {
             this.InitializeComponent();
-            //CalendarDatePicker.Date = null;
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)

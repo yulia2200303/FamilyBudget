@@ -8,32 +8,6 @@ using UI.ViewModel.Common;
 
 namespace UI.Model
 {
-    //public class UserModel: User
-    //{
-    //    public bool IsPanelShow { get; set; }
-
-    //    public string EnteredPassword { get; set; }
-
-    //    public static UserModel Convert(User user)
-    //    {
-    //        return new UserModel
-    //        {
-    //            IsPanelShow = false,
-    //            EnteredPassword = string.Empty,
-    //            Name = user.Name,
-    //            Hash = user.Hash,
-    //            Salt = user.Salt,
-    //            IsPasswordSet = user.IsPasswordSet,
-    //            Id = user.Id,
-    //            Assets = user.Assets
-    //        };
-    //    }
-
-    //    public static User ConvertBack(UserModel userModel)
-    //    {
-    //        throw new NotImplementedException();
-    //    }
-    //}
 
     public class UserModel : BaseViewModel
     {
