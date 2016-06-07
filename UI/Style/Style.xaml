@@ -25,7 +25,7 @@
     <converter:DoubleToDecimalConverter x:Name="DoubleToDecimalConverter"/>
 
 
-    <LinearGradientBrush x:Key="LinearGradient" EndPoint="0.8,1" StartPoint="0.1,1">
+    <LinearGradientBrush x:Key="LinearGradient" EndPoint="0.8,1" StartPoint="0.1,1" Opacity="0.8">
         <GradientStop Color="#7f7f7f" Offset="0.3"/>
         <GradientStop Color="#3798ff" Offset="0.822"/>
         <GradientStop Color="#000000" />
@@ -71,10 +71,18 @@
 
     <Style TargetType="TextBlock" x:Key="TextHeader">
         <Setter Property="TextWrapping" Value="WrapWholeWords"></Setter>
-        <Setter Property="Height" Value="55"></Setter>
-        <Setter Property="Width" Value="75"></Setter>
+        <Setter Property="Height" Value="40"></Setter>
         <Setter Property="HorizontalAlignment" Value="Left"></Setter>
-        <Setter Property="FontSize" Value="20"></Setter>
+        <Setter Property="FontSize" Value="26"></Setter>
+        <Setter Property="Opacity" Value="0.5"></Setter>
+        <Setter Property="Foreground">
+            <Setter.Value>
+                <LinearGradientBrush EndPoint="0.8,1" StartPoint="0.1,1">
+                    <GradientStop Color="#7f7f7f" Offset="0.6"/>
+                    <GradientStop Color="#3798ff" Offset="0.822"/>
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <Style TargetType="TextBlock" x:Key="TextError">

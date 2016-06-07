@@ -2,15 +2,12 @@
     x:Class="UI.Pages.ListOfTransactions"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:UI.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:helpers="using:UI.MVVM.Helpers"
     xmlns:userControl="using:UI.UserControl"
     xmlns:converter="using:UI.MVVM.Converter"
     xmlns:charting="using:WinRTXamlToolkit.Controls.DataVisualization.Charting"
     xmlns:dataVisualization="using:WinRTXamlToolkit.Controls.DataVisualization"
-    xmlns:controls="using:WinRTXamlToolkit.Controls"
     xmlns:primitives="using:WinRTXamlToolkit.Controls.DataVisualization.Charting.Primitives"
     mc:Ignorable="d">
     <Page.Resources>
@@ -116,7 +113,7 @@
 
 
         <StackPanel Grid.Row="0" Style="{StaticResource StackHeader}">
-            <TextBlock Text="Family Budget" Style="{StaticResource TextHeader}"/>
+            <TextBlock x:Uid="ListTransactionsHeader" Text="Family Budget" Style="{StaticResource TextHeader}"/>
             <Border Style="{StaticResource BorderHeader}"/>
         </StackPanel>
 
@@ -266,20 +263,14 @@
                 <PivotItem>
                     <charting:Chart x:Name="ColumnChart"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource ChartStyle1}">
                         <charting:Chart.Axes>
-                            <charting:LinearAxis ShowGridLines="True" >
+                            <!--<charting:LinearAxis ShowGridLines="True" >
                                 <charting:LinearAxis.GridLineStyle>
                                     <Style TargetType="Line">
                                         <Setter Property="Stroke" Value="#FF579ED4"></Setter>
 
                                     </Style>
                                 </charting:LinearAxis.GridLineStyle>
-                                <!--<charting:LinearAxis.AxisLabelStyle>
-                                    <Style TargetType="charting:AxisLabel">
-                                        <Setter Property="Foreground" Value="White"></Setter>
-                                    
-                                    </Style>
-                                </charting:LinearAxis.AxisLabelStyle>-->
-                            </charting:LinearAxis>
+                            </charting:LinearAxis>-->
 
                         </charting:Chart.Axes>
                         <charting:ColumnSeries  Margin="0" IndependentValuePath="Name" ItemsSource="{Binding ColumnChartCollection}" 
@@ -290,7 +281,7 @@
                 <PivotItem>
                     <charting:Chart  x:Name="LineChart" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource ChartStyle1}">
                         <charting:Chart.Axes>
-                            <charting:LinearAxis ShowGridLines="True" >
+                            <!--<charting:LinearAxis ShowGridLines="True" >
                                 <charting:LinearAxis.GridLineStyle>
                                     <Style TargetType="Line">
                                         <Setter Property="Stroke" Value="#FF579ED4"></Setter>
@@ -304,7 +295,7 @@
                                         <Setter Property="Stroke" Value="#FF032F50"></Setter>
                                     </Style>
                                 </charting:LinearAxis.GridLineStyle>
-                            </charting:LinearAxis>
+                            </charting:LinearAxis>-->
 
                         </charting:Chart.Axes>
 

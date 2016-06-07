@@ -62,7 +62,7 @@ namespace UI.Logic
             }
             catch (Exception)
             {
-                throw new Exception("Произошла ошибка при обновлении данных");
+                //throw new Exception("Произошла ошибка при обновлении данных");
             }
         }
 

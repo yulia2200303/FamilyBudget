@@ -255,4 +255,19 @@
   <data name="Yes" xml:space="preserve">
     <value>Да</value>
   </data>
+  <data name="AssetHeader.Text" xml:space="preserve">
+    <value>Рахункі</value>
+  </data>
+  <data name="CurrencyHeader.Text" xml:space="preserve">
+    <value>Валюты</value>
+  </data>
+  <data name="DeleteTransactionHeader.Text" xml:space="preserve">
+    <value>Выдаленне аперацый</value>
+  </data>
+  <data name="ListTransactionsHeader.Text" xml:space="preserve">
+    <value>Спіс аперацый</value>
+  </data>
+  <data name="SettingHeader.Text" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
 </root>

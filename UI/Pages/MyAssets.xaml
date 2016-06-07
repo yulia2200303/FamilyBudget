@@ -46,7 +46,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Style="{StaticResource StackHeader}">
-            <TextBlock Text="Assets" Style="{StaticResource TextHeader}"/>
+            <TextBlock x:Uid="AssetHeader" Text="Assets" Style="{StaticResource TextHeader}"/>
             <Border Style="{StaticResource BorderHeader}"/>
         </StackPanel>
 

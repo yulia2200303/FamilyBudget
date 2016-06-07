@@ -117,7 +117,7 @@
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="Transparent" />
                                         </ObjectAnimationUsingKeyFrames>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MultiSelectSquare" Storyboard.TargetProperty="Background">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightAccentBrush}" />
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Transparent" />
                                         </ObjectAnimationUsingKeyFrames>
                                         <PointerUpThemeAnimation Storyboard.TargetName="ContentPresenter" />
                                     </Storyboard>
@@ -313,10 +313,10 @@
                       StrokeThickness="2"
                       Opacity="0"/>
                         <Border x:Name="MultiSelectSquare"
-                  Background="{ThemeResource SystemControlBackgroundChromeMediumBrush}"
+                  Background="#252525"
                   Width="20"
                   Height="20"
-                  Margin="0,2,2,0"
+                  Margin="0,5,5,0"
                   VerticalAlignment="Top"
                   HorizontalAlignment="Right"
                   Visibility="Collapsed" >
@@ -324,7 +324,7 @@
                       FontFamily="{ThemeResource SymbolThemeFontFamily}"
                       Glyph="&#xE73E;"
                       FontSize="16"
-                      Foreground="{ThemeResource SystemControlForegroundBaseMediumHighBrush}"
+                      Foreground="White"
                       Opacity="0"/>
                         </Border>
                         <Rectangle x:Name="FocusVisualWhite"

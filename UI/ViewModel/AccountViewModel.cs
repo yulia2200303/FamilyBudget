@@ -67,9 +67,9 @@ namespace UI.ViewModel
         private string _login;
 
 
-        [Required(ErrorMessageResourceType = typeof(ErrorMessagesHelper), ErrorMessageResourceName = "RequiredErrorMessage")]
-        [StringLength(16, MinimumLength = 4, ErrorMessageResourceType = typeof(ErrorMessagesHelper), ErrorMessageResourceName = "LengthRange")]
-        [UniqueUserName(ErrorMessageResourceType = typeof(ErrorMessagesHelper), ErrorMessageResourceName = "NameAlreadyExists")]
+        //[Required(ErrorMessageResourceType = typeof(ErrorMessagesHelper), ErrorMessageResourceName = "RequiredErrorMessage")]
+        //[StringLength(16, MinimumLength = 4, ErrorMessageResourceType = typeof(ErrorMessagesHelper), ErrorMessageResourceName = "LengthRange")]
+        //[UniqueUserName(ErrorMessageResourceType = typeof(ErrorMessagesHelper), ErrorMessageResourceName = "NameAlreadyExists")]
         public string Login
         {
             get { return _login; }
@@ -79,7 +79,7 @@ namespace UI.ViewModel
         private string _password;
 
         [MinLengthIf("IsPasswordSet", true, 4, ErrorMessageResourceType = typeof(ErrorMessagesHelper), ErrorMessageResourceName = "LengthRange")]
-        [StringLength(16, MinimumLength = 4, ErrorMessageResourceType = typeof(ErrorMessagesHelper), ErrorMessageResourceName = "LengthRange")]
+        [StringLength(16, ErrorMessageResourceType = typeof(ErrorMessagesHelper), ErrorMessageResourceName = "LengthRange")]
         public string Password
         {
             get { return _password; }

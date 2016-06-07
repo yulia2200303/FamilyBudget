@@ -19,7 +19,7 @@
 
 
         <StackPanel Grid.Row="0" Style="{StaticResource StackHeader}">
-            <TextBlock Text="Family Budget" Style="{StaticResource TextHeader}"/>
+            <TextBlock x:Uid="DeleteTransactionHeader" Text="Family Budget" Style="{StaticResource TextHeader}"/>
             <Border Style="{StaticResource BorderHeader}"/>
         </StackPanel>
 
@@ -28,7 +28,7 @@
                               HorizontalScrollBarVisibility="Hidden" 
                               HorizontalScrollMode="Enabled"
                               VerticalScrollBarVisibility="Disabled">
-            <StackPanel Orientation="Horizontal" Margin="0,10,0, 0">
+            <StackPanel Orientation="Horizontal">
 
                 <ItemsControl ItemsSource="{Binding Filters}" HorizontalAlignment="Stretch">
                     <ItemsControl.ItemsPanel>
@@ -49,82 +49,85 @@
             </StackPanel>
         </ScrollViewer>
 
+        <ScrollViewer Grid.Row="2" Visibility="{Binding Transactions, Converter={StaticResource CollectionVisibilityConverter}}" Margin="0, 10">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
 
-        <Grid Grid.Row="2"  Visibility="{Binding Transactions, Converter={StaticResource CollectionVisibilityConverter}}">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-            </Grid.RowDefinitions>
-
-            <GridView ItemsSource="{Binding  ElementName=Main, Path=DataContext.Transactions}" IsItemClickEnabled="False" HorizontalContentAlignment="Stretch" x:Name="TransactionGridView"
+                <GridView ItemsSource="{Binding  ElementName=Main, Path=DataContext.Transactions}" IsItemClickEnabled="False" HorizontalContentAlignment="Stretch" x:Name="TransactionGridView"
                     HorizontalAlignment="Stretch" 
                     SelectionMode="Multiple"
                     Padding="0,0,0,7">
-                <GridView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Top"></StackPanel>
-                    </ItemsPanelTemplate>
-                </GridView.ItemsPanel>
-                <GridView.ItemContainerStyle>
-                    <Style TargetType="GridViewItem" BasedOn="{StaticResource GridViewItemExpanded}">
-                        <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
-                    </Style>
-                </GridView.ItemContainerStyle>
-                <GridView.ItemTemplate>
-                    <DataTemplate>
+                    <GridView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Top"></StackPanel>
+                        </ItemsPanelTemplate>
+                    </GridView.ItemsPanel>
+                    <GridView.ItemContainerStyle>
+                        <Style TargetType="GridViewItem" BasedOn="{StaticResource GridViewItemExpanded}">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                        </Style>
+                    </GridView.ItemContainerStyle>
+                    <GridView.ItemTemplate>
+                        <DataTemplate>
 
-                        <Grid  Style="{StaticResource GridDataTmpl}" >
+                            <Grid  Style="{StaticResource GridDataTmpl}" >
 
-                            <Grid Padding="5">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition></RowDefinition>
-                                    <RowDefinition></RowDefinition>
-                                    <RowDefinition></RowDefinition>
-                                    <RowDefinition></RowDefinition>
-                                    <RowDefinition></RowDefinition>
-                                </Grid.RowDefinitions>
+                                <Grid Padding="5">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
 
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition></ColumnDefinition>
-                                    <ColumnDefinition></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
 
-                                <TextBlock x:Uid="DateTB" Grid.Row="0" Grid.Column="0" Text="Date" Style="{StaticResource TextBlock}"></TextBlock>
-                                <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource TextBlock}" Text="{Binding Date, Converter={StaticResource DateTimeToStringConverter}, ConverterParameter='dd/MM/yyyy'}"></TextBlock>
+                                    <TextBlock x:Uid="DateTB" Grid.Row="0" Grid.Column="0" Text="Date" Style="{StaticResource TextBlock}"></TextBlock>
+                                    <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource TextBlock}" Text="{Binding Date, Converter={StaticResource DateTimeToStringConverter}, ConverterParameter='dd/MM/yyyy'}"></TextBlock>
 
-                                <TextBlock x:Uid="TypeTB" Grid.Row="1" Grid.Column="0" Text="Type" Style="{StaticResource TextBlock}"></TextBlock>
-                                <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource TextBlock}" Text="{Binding Type, Converter={StaticResource OperationTypeToStringConverter}}"></TextBlock>
+                                    <TextBlock x:Uid="TypeTB" Grid.Row="1" Grid.Column="0" Text="Type" Style="{StaticResource TextBlock}"></TextBlock>
+                                    <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource TextBlock}" Text="{Binding Type, Converter={StaticResource OperationTypeToStringConverter}}"></TextBlock>
 
-                                <TextBlock x:Uid="PriceTB" Grid.Row="2" Grid.Column="0" Text="Price" Style="{StaticResource TextBlock}"></TextBlock>
-                                <Grid Grid.Row="2" Grid.Column="1">
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{Binding Cost, Converter={StaticResource DoubleToDecimalConverter}}" Style="{StaticResource TextBlock}"></TextBlock>
-                                        <TextBlock>&#160;</TextBlock>
-                                        <TextBlock Text="{Binding Currency.Code}" Style="{StaticResource TextBlock}"></TextBlock>
-                                    </StackPanel>
+                                    <TextBlock x:Uid="PriceTB" Grid.Row="2" Grid.Column="0" Text="Price" Style="{StaticResource TextBlock}"></TextBlock>
+                                    <Grid Grid.Row="2" Grid.Column="1">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Cost, Converter={StaticResource DoubleToDecimalConverter}}" Style="{StaticResource TextBlock}"></TextBlock>
+                                            <TextBlock>&#160;</TextBlock>
+                                            <TextBlock Text="{Binding Currency.Code}" Style="{StaticResource TextBlock}"></TextBlock>
+                                        </StackPanel>
+                                    </Grid>
+
+                                    <TextBlock x:Uid="OrderTB" Grid.Row="3" Grid.Column="0" Text="Order" Style="{StaticResource TextBlock}"></TextBlock>
+                                    <Grid Grid.Row="3" Grid.Column="1">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Product.Name}" Style="{StaticResource TextBlock}"></TextBlock>
+                                            <TextBlock  Style="{StaticResource TextBlock}">&#160;/&#160;</TextBlock>
+                                            <TextBlock Text="{Binding Product.Parent.Name}" Style="{StaticResource TextBlock}"></TextBlock>
+                                        </StackPanel>
+                                    </Grid>
+
+
+                                    <TextBlock x:Uid="CommentTB" Grid.Row="4" Grid.Column="0" Text="Comment" Style="{StaticResource TextBlock}"></TextBlock>
+                                    <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding Comment}" TextTrimming="WordEllipsis" Style="{StaticResource TextBlock}"></TextBlock>
+
                                 </Grid>
-
-                                <TextBlock x:Uid="OrderTB" Grid.Row="3" Grid.Column="0" Text="Order" Style="{StaticResource TextBlock}"></TextBlock>
-                                <Grid Grid.Row="3" Grid.Column="1">
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{Binding Product.Name}" Style="{StaticResource TextBlock}"></TextBlock>
-                                        <TextBlock  Style="{StaticResource TextBlock}">&#160;/&#160;</TextBlock>
-                                        <TextBlock Text="{Binding Product.Parent.Name}" Style="{StaticResource TextBlock}"></TextBlock>
-                                    </StackPanel>
-                                </Grid>
-
-
-                                <TextBlock x:Uid="CommentTB" Grid.Row="4" Grid.Column="0" Text="Comment" Style="{StaticResource TextBlock}"></TextBlock>
-                                <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding Comment}" TextTrimming="WordEllipsis" Style="{StaticResource TextBlock}"></TextBlock>
-
                             </Grid>
-                        </Grid>
 
-                    </DataTemplate>
-                </GridView.ItemTemplate>
-            </GridView>
+                        </DataTemplate>
+                    </GridView.ItemTemplate>
+                </GridView>
 
-        </Grid>
+            </Grid>
+        </ScrollViewer>
+
+       
 
         <StackPanel Grid.Row="2" HorizontalAlignment="Stretch" Margin="20" Visibility="{Binding Transactions, Converter={StaticResource CollectionVisibilityConverter}, ConverterParameter='!'}">
             <TextBlock Text="No results" HorizontalAlignment="Center"></TextBlock>

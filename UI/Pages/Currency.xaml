@@ -14,7 +14,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Style="{StaticResource StackHeader}">
-            <TextBlock Text="Currencies" Style="{StaticResource TextHeader}"/>
+            <TextBlock x:Uid="CurrencyHeader" Text="Currencies" Style="{StaticResource TextHeader}"/>
             <Border Style="{StaticResource BorderHeader}"/>
         </StackPanel>
 

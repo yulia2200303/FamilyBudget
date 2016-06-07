@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Linq;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.Storage;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -36,7 +36,7 @@ namespace UI
             Suspending += OnSuspending;
 
          
-            // var x1 = ApplicationData.Current.LocalFolder;
+            //var path = ApplicationData.Current.LocalFolder;
             try
             {
                 LocalizationHelper.SetLocale(LocalizationHelper.GetCurrentLocale());
@@ -50,9 +50,7 @@ namespace UI
                 }
             }
             catch (Exception ex)
-
             {
-                var x = 1;
             }
         }
 

@@ -15,7 +15,7 @@
 
 
         <StackPanel Grid.Row="0" Style="{StaticResource StackHeader}">
-            <TextBlock Text="Family Budget" Style="{StaticResource TextHeader}"/>
+            <TextBlock x:Uid="SettingHeader" Text="Family Budget" Style="{StaticResource TextHeader}"/>
             <Border Style="{StaticResource BorderHeader}"/>
         </StackPanel>
 
